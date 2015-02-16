@@ -7,5 +7,4 @@ package com.almuradev.almurasdk;
 
 public class API {
     public static String API_ID = "almura_sdk";
-    public static String PACK_VERSION = "1.3";
 }

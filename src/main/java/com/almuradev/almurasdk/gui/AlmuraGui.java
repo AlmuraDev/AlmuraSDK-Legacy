@@ -7,11 +7,14 @@ package com.almuradev.almurasdk.gui;
 
 import com.almuradev.almurasdk.API;
 import com.almuradev.almurasdk.Filesystem;
+import com.almuradev.almurasdk.gui.components.UIBackground;
 import com.google.common.base.Optional;
 import net.malisis.core.client.gui.GuiTexture;
 import net.malisis.core.client.gui.MalisisGui;
 import net.malisis.core.client.gui.component.UIComponent;
 import net.malisis.core.client.gui.icon.GuiIcon;
+import net.malisis.core.renderer.animation.Animation;
+import net.malisis.core.renderer.animation.transformation.SizeTransform;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.input.Keyboard;
@@ -39,6 +42,8 @@ public abstract class AlmuraGui extends MalisisGui {
     public static final GuiIcon ICON_CLOSE_PRESSED;
     public static final GuiTexture TEXTURE_DEFAULT;
     protected final Optional<AlmuraGui> parent;
+    protected final UIBackground background = new UIBackground(this);
+    private final boolean isBackgroundEnabled;
 
     static {
         try {
@@ -49,45 +54,49 @@ public abstract class AlmuraGui extends MalisisGui {
             throw new RuntimeException("Failed load gui sprite sheet.", e);
         }
 
-        ICON_EMPTY = getIcon(283, 141, 1, 1);
-        ICON_BAR = getIcon(0, 126, 256, 14);
-        ICON_HEART = getIcon(149, 62, 26, 26);
-        ICON_ARMOR = getIcon(64, 63, 20, 27);
-        ICON_HUNGER = getIcon(198, 96, 28, 29);
-        ICON_STAMINA = getIcon(99, 93, 32, 31);
-        ICON_XP = getIcon(169, 98, 24, 24);
-        ICON_PLAYER = getIcon(67, 92, 28, 32);
-        ICON_COMPASS = getIcon(118, 66, 30, 26);
-        ICON_MAP = getIcon(0, 95, 32, 26);
-        ICON_WORLD = getIcon(133, 93, 32, 32);
-        ICON_CLOCK = getIcon(86, 64, 28, 26);
-        ICON_CLOSE_NORMAL = getIcon(239, 69, 45, 19);
-        ICON_CLOSE_HOVER = getIcon(239, 88, 45, 19);
-        ICON_CLOSE_PRESSED = getIcon(239, 107, 45, 19);
+        ICON_EMPTY = TEXTURE_DEFAULT.getIcon(283, 141, 1, 1);
+        ICON_BAR = TEXTURE_DEFAULT.getIcon(0, 126, 256, 14);
+        ICON_HEART = TEXTURE_DEFAULT.getIcon(149, 62, 26, 26);
+        ICON_ARMOR = TEXTURE_DEFAULT.getIcon(64, 63, 20, 27);
+        ICON_HUNGER = TEXTURE_DEFAULT.getIcon(198, 96, 28, 29);
+        ICON_STAMINA = TEXTURE_DEFAULT.getIcon(99, 93, 32, 31);
+        ICON_XP = TEXTURE_DEFAULT.getIcon(169, 98, 24, 24);
+        ICON_PLAYER = TEXTURE_DEFAULT.getIcon(67, 92, 28, 32);
+        ICON_COMPASS = TEXTURE_DEFAULT.getIcon(118, 66, 30, 26);
+        ICON_MAP = TEXTURE_DEFAULT.getIcon(0, 95, 32, 26);
+        ICON_WORLD = TEXTURE_DEFAULT.getIcon(133, 93, 32, 32);
+        ICON_CLOCK = TEXTURE_DEFAULT.getIcon(86, 64, 28, 26);
+        ICON_CLOSE_NORMAL = TEXTURE_DEFAULT.getIcon(239, 69, 45, 19);
+        ICON_CLOSE_HOVER = TEXTURE_DEFAULT.getIcon(239, 88, 45, 19);
+        ICON_CLOSE_PRESSED = TEXTURE_DEFAULT.getIcon(239, 107, 45, 19);
     }
 
     /**
-     * Creates an gui with a parent screen and calls {@link AlmuraGui#setup}, if the parent is null then no background will be added
+     * Creates a gui with a parent screen that does not have a background
      *
      * @param parent the {@link AlmuraGui} that we came from
      */
     public AlmuraGui(AlmuraGui parent) {
-        renderer.setDefaultTexture(TEXTURE_DEFAULT);
-        this.parent = Optional.fromNullable(parent);
-        mc = Minecraft.getMinecraft();
+        this(parent, false);
     }
 
     /**
-     * Snips out a {@link GuiIcon} based on the texture coordinates and size
+     * Creates a gui with a parent screen that can show a background
      *
-     * @param x      in pixels
-     * @param y      in pixels
-     * @param width  in pixels
-     * @param height in pixels
-     * @return the icon
+     * @param parent the {@link AlmuraGui} that we came from
+     * @param isBackgroundEnabled true to show an animated {@link UIBackground}, false otherwise
      */
-    public static GuiIcon getIcon(int x, int y, int width, int height) {
-        return TEXTURE_DEFAULT.getIcon(x, y, width, height);
+    public AlmuraGui(AlmuraGui parent, boolean isBackgroundEnabled) {
+        renderer.setDefaultTexture(TEXTURE_DEFAULT);
+        this.parent = Optional.fromNullable(parent);
+        mc = Minecraft.getMinecraft();
+        this.isBackgroundEnabled = isBackgroundEnabled;
+
+        if (isBackgroundEnabled) {
+            background.register(this);
+            addToScreen(background);
+            animate(background.animation);
+        }
     }
 
     public static int getPaddedX(UIComponent component, int padding) {
@@ -117,5 +126,18 @@ public abstract class AlmuraGui extends MalisisGui {
         }
         mc.displayGuiScreen(parent.isPresent() ? parent.get() : null);
         mc.setIngameFocus();
+    }
+
+    @Override
+    public void setWorldAndResolution(Minecraft minecraft, int width, int height) {
+        if (isBackgroundEnabled && (this.width != width || this.height != height)) {
+            background.animation =
+                    new Animation(background,
+                                  new SizeTransform((int) (width * UIBackground.ZOOM_LEVEL), (int) (height * UIBackground.ZOOM_LEVEL), width,
+                                                    height)
+                                          .forTicks(UIBackground.ANIMATION_SPEED));
+            animate(background.animation);
+        }
+        super.setWorldAndResolution(minecraft, width, height);
     }
 }
