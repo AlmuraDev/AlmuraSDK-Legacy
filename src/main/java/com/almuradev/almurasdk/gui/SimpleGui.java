@@ -1,5 +1,5 @@
 /**
- * This file is part of Almura-SDK, All Rights Reserved.
+ * This file is part of AlmuraSDK, All Rights Reserved.
  *
  * Copyright (c) 2015 AlmuraDev <http://github.com/AlmuraDev/>
  */
@@ -99,14 +99,6 @@ public abstract class SimpleGui extends MalisisGui {
         }
     }
 
-    /**
-     * Gets if the background of this {@link SimpleGui} is enabled or not
-     * @return true if enabled, false if not
-     */
-    public boolean isBackgroundEnabled() {
-        return background.isPresent();
-    }
-
     public static int getPaddedX(UIComponent component, int padding) {
         if (component == null) {
             return 0;
@@ -119,6 +111,14 @@ public abstract class SimpleGui extends MalisisGui {
             return 0;
         }
         return component.getY() + component.getHeight() + padding;
+    }
+
+    /**
+     * Gets if the background of this {@link SimpleGui} is enabled or not
+     * @return true if enabled, false if not
+     */
+    public boolean isBackgroundEnabled() {
+        return background.isPresent();
     }
 
     protected abstract void setup();

@@ -1,5 +1,5 @@
 /**
- * This file is part of Almura-SDK, All Rights Reserved.
+ * This file is part of AlmuraSDK, All Rights Reserved.
  *
  * Copyright (c) 2015 AlmuraDev <http://github.com/AlmuraDev/>
  */
