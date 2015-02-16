@@ -5,7 +5,7 @@
  */
 package com.almuradev.almurasdk.gui;
 
-import com.almuradev.almurasdk.API;
+import com.almuradev.almurasdk.AlmuraSDK;
 import com.almuradev.almurasdk.Filesystem;
 import com.almuradev.almurasdk.gui.components.UIBackground;
 import com.google.common.base.Optional;
@@ -22,9 +22,8 @@ import org.lwjgl.input.Keyboard;
 import java.awt.*;
 import java.io.IOException;
 
-public abstract class AlmuraGui extends MalisisGui {
+public abstract class SimpleGui extends MalisisGui {
 
-    public static final String COMPASS_CHARACTERS = "S|.|W|.|N|.|E|.|";
     public static final GuiIcon ICON_EMPTY;
     public static final GuiIcon ICON_BAR;
     public static final GuiIcon ICON_HEART;
@@ -40,18 +39,17 @@ public abstract class AlmuraGui extends MalisisGui {
     public static final GuiIcon ICON_CLOSE_NORMAL;
     public static final GuiIcon ICON_CLOSE_HOVER;
     public static final GuiIcon ICON_CLOSE_PRESSED;
-    public static final GuiTexture TEXTURE_DEFAULT;
-    protected final Optional<AlmuraGui> parent;
-    protected final UIBackground background = new UIBackground(this);
-    private final boolean backgroundEnabled;
+    private static GuiTexture TEXTURE_DEFAULT;
+    protected final Optional<SimpleGui> parent;
+    protected final Optional<UIBackground> background;
 
     static {
         try {
-            final ResourceLocation loc = Filesystem.registerTexture(API.API_ID, "textures/gui/gui.png", Filesystem.CONFIG_GUI_SPRITESHEET_PATH);
+            final ResourceLocation loc = Filesystem.registerTexture(AlmuraSDK.MOD_ID, "textures/gui/gui.png", Filesystem.CONFIG_GUI_SPRITESHEET_PATH);
             final Dimension dim = Filesystem.getImageDimension(Filesystem.CONFIG_GUI_SPRITESHEET_PATH);
             TEXTURE_DEFAULT = new GuiTexture(loc, dim.width, dim.height);
         } catch (IOException e) {
-            throw new RuntimeException("Failed load gui sprite sheet.", e);
+            TEXTURE_DEFAULT = new GuiTexture(null);
         }
 
         ICON_EMPTY = TEXTURE_DEFAULT.getIcon(283, 141, 1, 1);
@@ -74,37 +72,39 @@ public abstract class AlmuraGui extends MalisisGui {
     /**
      * Creates a gui with a parent screen that does not have a background
      *
-     * @param parent the {@link AlmuraGui} that we came from
+     * @param parent the {@link SimpleGui} that we came from
      */
-    public AlmuraGui(AlmuraGui parent) {
+    public SimpleGui(SimpleGui parent) {
         this(parent, false);
     }
 
     /**
      * Creates a gui with a parent screen that can show a background
      *
-     * @param parent the {@link AlmuraGui} that we came from
+     * @param parent the {@link SimpleGui} that we came from
      * @param backgroundEnabled true to show an animated {@link UIBackground}, false if not
      */
-    public AlmuraGui(AlmuraGui parent, boolean backgroundEnabled) {
+    public SimpleGui(SimpleGui parent, boolean backgroundEnabled) {
         renderer.setDefaultTexture(TEXTURE_DEFAULT);
         this.parent = Optional.fromNullable(parent);
         mc = Minecraft.getMinecraft();
-        this.backgroundEnabled = backgroundEnabled;
 
         if (backgroundEnabled) {
-            background.register(this);
-            addToScreen(background);
-            animate(background.animation);
+            background = Optional.of(new UIBackground(this));
+            background.get().register(this);
+            addToScreen(background.get());
+            animate(background.get().animation);
+        } else {
+            background = Optional.absent();
         }
     }
 
     /**
-     * Gets if the background of this {@link AlmuraGui} is enabled or not
+     * Gets if the background of this {@link SimpleGui} is enabled or not
      * @return true if enabled, false if not
      */
     public boolean isBackgroundEnabled() {
-        return backgroundEnabled;
+        return background.isPresent();
     }
 
     public static int getPaddedX(UIComponent component, int padding) {
@@ -138,13 +138,13 @@ public abstract class AlmuraGui extends MalisisGui {
 
     @Override
     public void setWorldAndResolution(Minecraft minecraft, int width, int height) {
-        if (backgroundEnabled && (this.width != width || this.height != height)) {
-            background.animation =
-                    new Animation(background,
+        if (background.isPresent() && (this.width != width || this.height != height)) {
+            background.get().animation =
+                    new Animation(background.get(),
                                   new SizeTransform((int) (width * UIBackground.ZOOM_LEVEL), (int) (height * UIBackground.ZOOM_LEVEL), width,
                                                     height)
                                           .forTicks(UIBackground.ANIMATION_SPEED));
-            animate(background.animation);
+            animate(background.get().animation);
         }
         super.setWorldAndResolution(minecraft, width, height);
     }

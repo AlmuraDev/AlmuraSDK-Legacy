@@ -5,7 +5,7 @@
  */
 package com.almuradev.almurasdk.gui.util;
 
-public class UIColor {
+public class Colors {
     public static final int ALMURA_BLUE = 9283532;
     public static final int BLACK = 0;
     public static final int BLUE = 255;

@@ -5,8 +5,8 @@
  */
 package com.almuradev.almurasdk.gui.components;
 
-import com.almuradev.almurasdk.gui.AlmuraGui;
-import com.almuradev.almurasdk.gui.util.UIColor;
+import com.almuradev.almurasdk.gui.SimpleGui;
+import com.almuradev.almurasdk.gui.util.Colors;
 import com.google.common.eventbus.Subscribe;
 import net.malisis.core.client.gui.Anchor;
 import net.malisis.core.client.gui.component.UIComponent;
@@ -29,36 +29,36 @@ public class UIForm extends UIBackgroundContainer {
     /**
      * Creates a form with no title that has a close button
      *
-     * @param parent The parent {@link AlmuraGui}
-     * @param width  The width of the form
+     * @param parent The parent {@link SimpleGui}
+     * @param width The width of the form
      * @param height The height of the form
      */
-    public UIForm(AlmuraGui parent, int width, int height) {
+    public UIForm(SimpleGui parent, int width, int height) {
         this(parent, width, height, "", true);
     }
 
     /**
      * Creates a form with a title that has a close buton
      *
-     * @param parent The parent {@link AlmuraGui}
-     * @param width  The width of the form
+     * @param parent The parent {@link SimpleGui}
+     * @param width The width of the form
      * @param height The height of the form
-     * @param title  The title of the form
+     * @param title The title of the form
      */
-    public UIForm(AlmuraGui parent, int width, int height, String title) {
+    public UIForm(SimpleGui parent, int width, int height, String title) {
         this(parent, width, height, title, true);
     }
 
     /**
      * Creates a form with a title that may or may not show a close button
      *
-     * @param parent          The parent {@link AlmuraGui}
-     * @param width           The width of the form
-     * @param height          The height of the form
-     * @param title           The title of the form
+     * @param parent The parent {@link SimpleGui}
+     * @param width The width of the form
+     * @param height The height of the form
+     * @param title The title of the form
      * @param showCloseButton Specifies if this form has a close button
      */
-    public UIForm(AlmuraGui parent, int width, int height, String title, boolean showCloseButton) {
+    public UIForm(SimpleGui parent, int width, int height, String title, boolean showCloseButton) {
         super(parent);
 
         // Setup controls
@@ -68,7 +68,7 @@ public class UIForm extends UIBackgroundContainer {
         setSize(width, height);
 
         titleContainer.setSize(INHERITED, TITLE_BAR_HEIGHT);
-        titleContainer.setColor(UIColor.ALMURA_BLUE);
+        titleContainer.setColor(Colors.ALMURA_BLUE);
         titleContainer.register(this);
 
         contentContainer.setSize(INHERITED, getHeight() - TITLE_BAR_HEIGHT);
@@ -152,11 +152,11 @@ public class UIForm extends UIBackgroundContainer {
 
         private CloseButton titleCloseButton;
 
-        public DraggableBackgroundContainer(AlmuraGui parent, String title, boolean showCloseButton) {
+        public DraggableBackgroundContainer(SimpleGui parent, String title, boolean showCloseButton) {
             super(parent);
 
             titleLabel = new UILabel(parent, title);
-            titleLabel.setColor(UIColor.BLACK);
+            titleLabel.setColor(Colors.BLACK);
             titleLabel.setPosition(4, 1, Anchor.LEFT | Anchor.MIDDLE);
 
             if (showCloseButton) {
@@ -215,13 +215,13 @@ public class UIForm extends UIBackgroundContainer {
 
     private class CloseButton extends UIButton {
 
-        public CloseButton(AlmuraGui gui) {
+        public CloseButton(SimpleGui gui) {
             super(gui, "");
             width = 23;
             height = 10;
             shape = new SimpleGuiShape();
-            icon = AlmuraGui.ICON_CLOSE_NORMAL;
-            iconHovered = AlmuraGui.ICON_CLOSE_HOVER;
+            icon = SimpleGui.ICON_CLOSE_NORMAL;
+            iconHovered = SimpleGui.ICON_CLOSE_HOVER;
         }
     }
 }

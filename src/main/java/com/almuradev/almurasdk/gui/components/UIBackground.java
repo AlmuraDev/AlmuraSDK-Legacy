@@ -5,9 +5,6 @@
  */
 package com.almuradev.almurasdk.gui.components;
 
-import com.almuradev.almurasdk.API;
-import com.almuradev.almurasdk.Filesystem;
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import net.malisis.core.client.gui.Anchor;
 import net.malisis.core.client.gui.GuiRenderer;
@@ -18,11 +15,6 @@ import net.malisis.core.client.gui.component.decoration.UIImage;
 import net.malisis.core.renderer.animation.Animation;
 import net.malisis.core.renderer.animation.transformation.SizeTransform;
 
-import java.io.IOException;
-import java.nio.file.DirectoryStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
@@ -36,23 +28,6 @@ public class UIBackground extends UIImage {
     private static final Random RANDOM = new Random();
     private final MalisisGui gui;
     public Animation animation;
-
-    static {
-        for (TimeState state : TimeState.values()) {
-            final Path statePath = Paths.get(Filesystem.CONFIG_BACKGROUNDS_PATH.toString(), state.toString());
-            List<GuiTexture> backgrounds = STATE_TEXTURES.get(state);
-            if (backgrounds == null) {
-                backgrounds = Lists.newArrayList();
-                STATE_TEXTURES.put(state, backgrounds);
-            }
-            try (DirectoryStream<Path> stream = Files.newDirectoryStream(statePath, Filesystem.IMAGE_FILES_ONLY_FILTER)) {
-                for (Path path : stream) {
-                    backgrounds.add(new GuiTexture(Filesystem.registerTexture(API.API_ID, path.toString(), path)));
-                }
-            } catch (IOException ignored) {
-            }
-        }
-    }
 
     private int currentAnchor;
 

@@ -36,8 +36,7 @@ import javax.imageio.stream.ImageInputStream;
 
 public class Filesystem {
 
-    public static final Path CONFIG_PATH = Paths.get("config" + File.separator + API.API_ID);
-    public static final Path CONFIG_BACKGROUNDS_PATH = Paths.get(CONFIG_PATH.toString(), "backgrounds");
+    public static final Path CONFIG_PATH = Paths.get("config" + File.separator + AlmuraSDK.MOD_ID);
     public static final Path CONFIG_GUI_SPRITESHEET_PATH = Paths.get(CONFIG_PATH.toString(), "images" + File.separator + "gui.png");
 
     public static DirectoryStream.Filter<Path> DIRECTORIES_ONLY_FILTER = new DirectoryStream.Filter<Path>() {
