@@ -10,7 +10,7 @@ import java.util.Set;
 
 public class PermissibleAllMods implements Permissible {
 
-    private Set<Permissible> permissibles = new HashSet<Permissible>();
+    private Set<Permissible> permissibles = new HashSet<>();
 
     public void addPermissible(Permissible permissible) {
         this.permissibles.add(permissible);

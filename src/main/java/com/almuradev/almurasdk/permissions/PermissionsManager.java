@@ -5,8 +5,6 @@
  */
 package com.almuradev.almurasdk.permissions;
 
-import cpw.mods.fml.common.gameevent.TickEvent;
-
 /**
  * Interface for permissions manager implementations
  *

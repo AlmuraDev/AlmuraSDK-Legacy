@@ -37,12 +37,12 @@ public interface Permissible {
      *
      * @param manager
      */
-    public void onPermissionsCleared(PermissionsManager manager);
+    void onPermissionsCleared(PermissionsManager manager);
 
     /**
      * Called when the permissions are changed (eg. when new permissions are received from the server)
      *
      * @param manager
      */
-    public void onPermissionsChanged(PermissionsManager manager);
+    void onPermissionsChanged(PermissionsManager manager);
 }
