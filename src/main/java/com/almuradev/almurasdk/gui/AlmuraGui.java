@@ -43,7 +43,7 @@ public abstract class AlmuraGui extends MalisisGui {
     public static final GuiTexture TEXTURE_DEFAULT;
     protected final Optional<AlmuraGui> parent;
     protected final UIBackground background = new UIBackground(this);
-    private final boolean isBackgroundEnabled;
+    private final boolean backgroundEnabled;
 
     static {
         try {
@@ -84,19 +84,27 @@ public abstract class AlmuraGui extends MalisisGui {
      * Creates a gui with a parent screen that can show a background
      *
      * @param parent the {@link AlmuraGui} that we came from
-     * @param isBackgroundEnabled true to show an animated {@link UIBackground}, false otherwise
+     * @param backgroundEnabled true to show an animated {@link UIBackground}, false if not
      */
-    public AlmuraGui(AlmuraGui parent, boolean isBackgroundEnabled) {
+    public AlmuraGui(AlmuraGui parent, boolean backgroundEnabled) {
         renderer.setDefaultTexture(TEXTURE_DEFAULT);
         this.parent = Optional.fromNullable(parent);
         mc = Minecraft.getMinecraft();
-        this.isBackgroundEnabled = isBackgroundEnabled;
+        this.backgroundEnabled = backgroundEnabled;
 
-        if (isBackgroundEnabled) {
+        if (backgroundEnabled) {
             background.register(this);
             addToScreen(background);
             animate(background.animation);
         }
+    }
+
+    /**
+     * Gets if the background of this {@link AlmuraGui} is enabled or not
+     * @return true if enabled, false if not
+     */
+    public boolean isBackgroundEnabled() {
+        return backgroundEnabled;
     }
 
     public static int getPaddedX(UIComponent component, int padding) {
@@ -130,7 +138,7 @@ public abstract class AlmuraGui extends MalisisGui {
 
     @Override
     public void setWorldAndResolution(Minecraft minecraft, int width, int height) {
-        if (isBackgroundEnabled && (this.width != width || this.height != height)) {
+        if (backgroundEnabled && (this.width != width || this.height != height)) {
             background.animation =
                     new Animation(background,
                                   new SizeTransform((int) (width * UIBackground.ZOOM_LEVEL), (int) (height * UIBackground.ZOOM_LEVEL), width,
