@@ -7,12 +7,12 @@ package com.almuradev.almurasdk.server.network.play;
 
 import com.almuradev.almurasdk.permissions.Permissible;
 import com.almuradev.almurasdk.permissions.PermissionsManagerClient;
-import com.almuradev.almurasdk.permissions.ReplicatedPermissionsContainer;
 import com.almuradev.almurasdk.permissions.ServerPermissions;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 import io.netty.buffer.ByteBuf;
+import net.eq2online.permissions.ReplicatedPermissionsContainer;
 
 public class S00PacketPermissionsQuery implements IMessage, IMessageHandler<S00PacketPermissionsQuery, IMessage> {
 
@@ -24,15 +24,15 @@ public class S00PacketPermissionsQuery implements IMessage, IMessageHandler<S00P
     public S00PacketPermissionsQuery(ReplicatedPermissionsContainer container) {
         this.container = container;
     }
-
+    
     @Override
     public void fromBytes(ByteBuf buf) {
-        container = ReplicatedPermissionsContainer.readPermissionsContainer(buf);
+        container = ReplicatedPermissionsContainer.fromBytes(buf.array());
     }
 
     @Override
     public void toBytes(ByteBuf buf) {
-        ReplicatedPermissionsContainer.writePermissionsContainer(buf, container);
+        buf.writeBytes(container.getBytes());
     }
 
     @Override

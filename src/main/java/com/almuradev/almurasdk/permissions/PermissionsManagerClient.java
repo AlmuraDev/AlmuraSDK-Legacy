@@ -6,13 +6,14 @@
 package com.almuradev.almurasdk.permissions;
 
 import com.almuradev.almurasdk.AlmuraSDK;
-import com.almuradev.almurasdk.client.network.play.C00PacketPermissionsQuery;
+import com.almuradev.almurasdk.server.network.play.S00PacketPermissionsQuery;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
 import cpw.mods.fml.common.network.FMLNetworkEvent;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import net.eq2online.permissions.ReplicatedPermissionsContainer;
 import net.minecraft.client.Minecraft;
 
 import java.util.HashMap;
@@ -240,7 +241,7 @@ public class PermissionsManagerClient implements PermissionsManager {
                 ReplicatedPermissionsContainer query = new ReplicatedPermissionsContainer(modName, modVersion, modPermissions);
 
                 if (!query.modName.equals("all") || query.permissions.size() > 0) {
-                    AlmuraSDK.NETWORK_PERMISSIONS.sendToServer(new C00PacketPermissionsQuery(query));
+                    AlmuraSDK.NETWORK_PERMISSIONS.sendToServer(new S00PacketPermissionsQuery(query));
                 }
             }
         } else {

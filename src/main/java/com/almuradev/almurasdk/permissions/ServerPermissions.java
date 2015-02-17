@@ -5,6 +5,8 @@
  */
 package com.almuradev.almurasdk.permissions;
 
+import net.eq2online.permissions.ReplicatedPermissionsContainer;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
