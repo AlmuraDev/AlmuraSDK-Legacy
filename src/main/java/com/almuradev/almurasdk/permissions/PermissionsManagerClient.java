@@ -6,7 +6,7 @@
 package com.almuradev.almurasdk.permissions;
 
 import com.almuradev.almurasdk.AlmuraSDK;
-import com.almuradev.almurasdk.server.network.play.S00PacketPermissionsQuery;
+import com.almuradev.almurasdk.server.network.play.S00PacketPermissions;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
@@ -227,7 +227,7 @@ public class PermissionsManagerClient implements PermissionsManager {
                 ReplicatedPermissionsContainer query = new ReplicatedPermissionsContainer(modName, modVersion, modPermissions);
 
                 if (!query.modName.equals("all") || query.permissions.size() > 0) {
-                    AlmuraSDK.NETWORK_PERMISSIONS.sendToServer(new S00PacketPermissionsQuery(query));
+                    AlmuraSDK.NETWORK_PERMISSIONS.sendToServer(new S00PacketPermissions(query));
                 }
             }
         } else {

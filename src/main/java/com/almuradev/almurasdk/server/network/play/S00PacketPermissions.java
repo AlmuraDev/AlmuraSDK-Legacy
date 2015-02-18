@@ -14,14 +14,22 @@ import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 import io.netty.buffer.ByteBuf;
 import net.eq2online.permissions.ReplicatedPermissionsContainer;
 
-public class S00PacketPermissionsQuery implements IMessage, IMessageHandler<S00PacketPermissionsQuery, IMessage> {
+/**
+ * Two-way communication of permissions:
+ *
+ * C -> S
+ *     Sends the server all registered permissibles.
+ * S -> C
+ *     Sends the client the status of the permissibles (true or false enable status)
+ */
+public class S00PacketPermissions implements IMessage, IMessageHandler<S00PacketPermissions, IMessage> {
 
     public ReplicatedPermissionsContainer container;
 
-    public S00PacketPermissionsQuery() {
+    public S00PacketPermissions() {
     }
 
-    public S00PacketPermissionsQuery(ReplicatedPermissionsContainer container) {
+    public S00PacketPermissions(ReplicatedPermissionsContainer container) {
         this.container = container;
     }
 
@@ -36,7 +44,7 @@ public class S00PacketPermissionsQuery implements IMessage, IMessageHandler<S00P
     }
 
     @Override
-    public IMessage onMessage(S00PacketPermissionsQuery message, MessageContext ctx) {
+    public IMessage onMessage(S00PacketPermissions message, MessageContext ctx) {
         if (ctx.side.isClient()) {
             ServerPermissions permissions = null;
 
