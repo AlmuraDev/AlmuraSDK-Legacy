@@ -222,6 +222,7 @@ public class UIForm extends UIBackgroundContainer {
             shape = new SimpleGuiShape();
             icon = SimpleGui.ICON_CLOSE_NORMAL;
             iconHovered = SimpleGui.ICON_CLOSE_HOVER;
+            iconPressed = SimpleGui.ICON_CLOSE_PRESSED;
         }
     }
 }

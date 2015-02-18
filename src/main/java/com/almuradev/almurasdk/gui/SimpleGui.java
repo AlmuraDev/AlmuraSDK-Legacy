@@ -7,7 +7,6 @@ package com.almuradev.almurasdk.gui;
 
 import com.almuradev.almurasdk.AlmuraSDK;
 import com.almuradev.almurasdk.Filesystem;
-import com.almuradev.almurasdk.gui.components.UIBackground;
 import com.google.common.base.Optional;
 import net.malisis.core.client.gui.GuiTexture;
 import net.malisis.core.client.gui.MalisisGui;
@@ -41,7 +40,6 @@ public abstract class SimpleGui extends MalisisGui {
     public static final GuiIcon ICON_CLOSE_PRESSED;
     private static GuiTexture TEXTURE_DEFAULT;
     protected final Optional<SimpleGui> parent;
-    protected final Optional<UIBackground> background;
 
     static {
         try {
@@ -70,55 +68,14 @@ public abstract class SimpleGui extends MalisisGui {
     }
 
     /**
-     * Creates a gui with a parent screen that does not have a background
+     * Creates a gui
      *
      * @param parent the {@link SimpleGui} that we came from
      */
     public SimpleGui(SimpleGui parent) {
-        this(parent, false);
-    }
-
-    /**
-     * Creates a gui with a parent screen that can show a background
-     *
-     * @param parent the {@link SimpleGui} that we came from
-     * @param backgroundEnabled true to show an animated {@link UIBackground}, false if not
-     */
-    public SimpleGui(SimpleGui parent, boolean backgroundEnabled) {
         renderer.setDefaultTexture(TEXTURE_DEFAULT);
         this.parent = Optional.fromNullable(parent);
         mc = Minecraft.getMinecraft();
-
-        if (backgroundEnabled) {
-            background = Optional.of(new UIBackground(this));
-            background.get().register(this);
-            addToScreen(background.get());
-            animate(background.get().animation);
-        } else {
-            background = Optional.absent();
-        }
-    }
-
-    public static int getPaddedX(UIComponent component, int padding) {
-        if (component == null) {
-            return 0;
-        }
-        return component.getX() + component.getWidth() + padding;
-    }
-
-    public static int getPaddedY(UIComponent component, int padding) {
-        if (component == null) {
-            return 0;
-        }
-        return component.getY() + component.getHeight() + padding;
-    }
-
-    /**
-     * Gets if the background of this {@link SimpleGui} is enabled or not
-     * @return true if enabled, false if not
-     */
-    public boolean isBackgroundEnabled() {
-        return background.isPresent();
     }
 
     protected abstract void setup();
@@ -134,18 +91,5 @@ public abstract class SimpleGui extends MalisisGui {
         }
         mc.displayGuiScreen(parent.isPresent() ? parent.get() : null);
         mc.setIngameFocus();
-    }
-
-    @Override
-    public void setWorldAndResolution(Minecraft minecraft, int width, int height) {
-        if (background.isPresent() && (this.width != width || this.height != height)) {
-            background.get().animation =
-                    new Animation(background.get(),
-                                  new SizeTransform((int) (width * UIBackground.ZOOM_LEVEL), (int) (height * UIBackground.ZOOM_LEVEL), width,
-                                                    height)
-                                          .forTicks(UIBackground.ANIMATION_SPEED));
-            animate(background.get().animation);
-        }
-        super.setWorldAndResolution(minecraft, width, height);
     }
 }
