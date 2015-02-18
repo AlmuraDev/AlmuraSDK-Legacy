@@ -43,7 +43,7 @@ public interface PermissionsManager {
     void registerPermission(String permission);
 
     /**
-     * Register a permission for the specified mod, the permission will be prefixed with "mod.<modname>." to provide
+     * Register a permission for the specified mod, the permission will be prefixed with "mod.{modname}." to provide
      * a common namespace for client mods when permissions are replicated to the server
      *
      * @param mod
@@ -67,7 +67,7 @@ public interface PermissionsManager {
     boolean getPermission(String permission, boolean defaultValue);
 
     /**
-     * Get the value of the specified permission for the specified mod. The permission will be prefixed with "mod.<modname>."
+     * Get the value of the specified permission for the specified mod. The permission will be prefixed with "mod.{modname}."
      * in keeping with registerModPermission as a convenience.
      *
      * @param mod
@@ -76,7 +76,7 @@ public interface PermissionsManager {
     boolean getModPermission(Permissible mod, String permission);
 
     /**
-     * Get the value of the specified permission for the specified mod. The permission will be prefixed with "mod.<modname>."
+     * Get the value of the specified permission for the specified mod. The permission will be prefixed with "mod.{modname}."
      * in keeping with registerModPermission as a convenience.
      *
      * @param modName
@@ -85,7 +85,7 @@ public interface PermissionsManager {
     boolean getModPermission(String modName, String permission);
 
     /**
-     * Get the value of the specified permission for the specified mod. The permission will be prefixed with "mod.<modname>."
+     * Get the value of the specified permission for the specified mod. The permission will be prefixed with "mod.{modname}."
      * in keeping with registerModPermission as a convenience. If the permission does not exist, the specified default value
      * will be returned.
      *
@@ -96,7 +96,7 @@ public interface PermissionsManager {
     boolean getModPermission(Permissible mod, String permission, boolean defaultValue);
 
     /**
-     * Get the value of the specified permission for the specified mod. The permission will be prefixed with "mod.<modname>."
+     * Get the value of the specified permission for the specified mod. The permission will be prefixed with "mod.{modname}."
      * in keeping with registerModPermission as a convenience.
      *
      * @param modName

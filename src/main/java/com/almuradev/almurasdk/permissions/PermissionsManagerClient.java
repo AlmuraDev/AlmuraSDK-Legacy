@@ -247,7 +247,7 @@ public class PermissionsManagerClient implements PermissionsManager {
     }
 
     /**
-     * Register a permission for the specified mod, the permission will be prefixed with "mod.<modname>." to provide
+     * Register a permission for the specified mod, the permission will be prefixed with "mod.{modname}." to provide
      * a common namespace for client mods when permissions are replicated to the server
      *
      * @param mod
@@ -295,7 +295,7 @@ public class PermissionsManagerClient implements PermissionsManager {
     }
 
     /**
-     * Get the value of the specified permission for the specified mod. The permission will be prefixed with "mod.<modname>."
+     * Get the value of the specified permission for the specified mod. The permission will be prefixed with "mod.{modname}."
      * in keeping with registerModPermission as a convenience.
      *
      * @param mod
@@ -314,7 +314,7 @@ public class PermissionsManagerClient implements PermissionsManager {
     }
 
     /**
-     * Get the value of the specified permission for the specified mod. The permission will be prefixed with "mod.<modname>."
+     * Get the value of the specified permission for the specified mod. The permission will be prefixed with "mod.{modname}."
      * in keeping with registerModPermission as a convenience.
      *
      * @param modName
@@ -327,7 +327,7 @@ public class PermissionsManagerClient implements PermissionsManager {
     }
 
     /**
-     * Get the value of the specified permission for the specified mod. The permission will be prefixed with "mod.<modname>."
+     * Get the value of the specified permission for the specified mod. The permission will be prefixed with "mod.{modname}."
      * in keeping with registerModPermission as a convenience. If the permission does not exist, the specified default value
      * will be returned.
      *
@@ -351,7 +351,7 @@ public class PermissionsManagerClient implements PermissionsManager {
     }
 
     /**
-     * Get the value of the specified permission for the specified mod. The permission will be prefixed with "mod.<modname>."
+     * Get the value of the specified permission for the specified mod. The permission will be prefixed with "mod.{modname}."
      * in keeping with registerModPermission as a convenience.
      *
      * @param modName

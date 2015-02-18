@@ -17,9 +17,9 @@ import net.eq2online.permissions.ReplicatedPermissionsContainer;
 /**
  * Two-way communication of permissions:
  *
- * C -> S
+ * C to S
  *     Sends the server all registered permissibles.
- * S -> C
+ * S to C
  *     Sends the client the status of the permissibles (true or false enable status)
  */
 public class S00PacketPermissions implements IMessage, IMessageHandler<S00PacketPermissions, IMessage> {

@@ -8,7 +8,7 @@ package com.almuradev.almurasdk.permissions;
 public interface Permissible {
 
     /**
-     * Returns the node name of the mod, replicated permissions will be of the form mod.<name>.permission.node so this
+     * Returns the node name of the mod, replicated permissions will be of the form mod.{modname}.permission.node so this
      * method must return a valid name for use in permission nodes. This method must also return the same value every
      * time it is called since permissible names are not necessarily cached.
      *
