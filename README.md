@@ -5,63 +5,68 @@ Almura SDK
 * [Java] 7
 * [Gradle] 2.1+
 
+## Cloning
+To clone AlmuraSDK, simply run `
+
 ## Setup
 __Note:__ If you do not have [Gradle] installed then use ./gradlew for Unix systems or Git Bash and gradlew.bat for Windows systems in place of any 'gradle' command.
 
 __For [Eclipse]__  
   1. Run `gradle setupDecompWorkspace --refresh-dependencies`  
-  2. Make sure you have the Gradle plugin installed (Help > Eclipse Marketplace > Gradle Integration Plugin)  
-  3. Import Almura-SDK as a Gradle project (File > Import)
-  4. Select the root folder for Almura-SDK and click **Build Model**
-  5. Check Almura-SDK when it finishes building and click **Finish**
+  2. Run `cd MalisisCore` and run `gradle setupDecompWorkspace --refresh-dependencies`  
+  3. Make sure you have the Gradle plugin installed (Help > Eclipse Marketplace > Gradle Integration Plugin)  
+  4. Import AlmuraSDK as a Gradle project (File > Import)
+  5. Select the root folder for AlmuraSDK  and click **Build Model**
+  6. Check AlmuraSDK when it finishes building and click **Finish**
 
 __For [IntelliJ]__  
   1. Run `gradle setupDecompWorkspace --refresh-dependencies`  
-  2. Make sure you have the Gradle plugin enabled (File > Settings > Plugins).  
-  3. Click File > Import Module and select the **build.gradle** file for Almura.
+  2. Run `cd MalisisCore` and run `gradle setupDecompWorkspace --refresh-dependencies`  
+  3. Make sure you have the Gradle plugin enabled (File > Settings > Plugins).  
+  4. Click File > Import Module and select the **build.gradle** file for Almura.
 
 ## Running
-__Note 1:__ The following is aimed to help you setup run configurations for Eclipse and IntelliJ, if you do not want to be able to run Almura-SDK directly from your IDE then you can skip this.
+__Note 1:__ The following is aimed to help you setup run configurations for Eclipse and IntelliJ, if you do not want to be able to run AlmuraSDK  directly from your IDE then you can skip this.
 
 __For [Eclipse]__  
   1. Go to **Run > Run Configurations**.  
   2. Right-click **Java Application** and select **New**.  
   3. Set the current project.  
-  4. Set the name as `Almura-SDK (Client)` and apply the information for Client below.
-  5. Repeat step 1 through 4, then set the name as `Almura-SDK (Server)` and apply the information for Server below.  
+  4. Set the name as `AlmuraSDK  (Client)` and apply the information for Client below.
+  5. Repeat step 1 through 4, then set the name as `AlmuraSDK  (Server)` and apply the information for Server below.  
   5a. When launching the server for the first time, it will shutdown by itself. You will need to modify the server.properties to set onlinemode=false and modify the eula.txt to set eula=true (this means you agree to the Mojang EULA, if you do not wish to do this then you cannot run the server).
 
 
 __For [IntelliJ]__  
   1. Go to **Run > Edit Configurations**.  
   2. Click the green + button and select **Application**.  
-  3. Set the name as `Almura-SDK (Client)` and apply the information for Client below.  
-  4. Repeat step 2 and set the name as `Almura-SDK (Server)` and apply the information for Server below.  
+  3. Set the name as `AlmuraSDK  (Client)` and apply the information for Client below.  
+  4. Repeat step 2 and set the name as `AlmuraSDK  (Server)` and apply the information for Server below.  
   4a. When launching the server for the first time, it will shutdown by itself. You will need to modify the server.properties to set onlinemode=false and modify the eula.txt to set eula=true (this means you agree to the Mojang EULA, if you do not wish to do this then you cannot run the server).
 
 __Client__
 
-|     Property      | Value                                                      |
-|:-----------------:|:-----------------------------------------------------------|
-|    Main class     | GradleStart                                                |
-|    VM options     | -Dfml.coreMods.load=net.malisis.core.asm.MalisisCorePlugin |
-| Working directory | ./run (Included in project)                         |
-| Module classpath  | Almura-SDK (IntelliJ Only)                                     |
+|     Property      | Value                       |
+|:-----------------:|:----------------------------|
+|    Main class     | GradleStart                 |
+|    VM options     | -Xincgc -Xmx1024M -Xms1024M -Dfml.coreMods.load=net.malisis.core.asm.MalisisCorePlugin -Dfml.coreMods.load=com.almuradev.almurasdk.core.AlmuraSDKCoreMod |
+| Working directory | ./run (Included in project) |
+| Module classpath  | AlmuraSDK  (IntelliJ Only)  |
 
 __Server__
 
-|     Property      | Value                              |
-|:-----------------:|:-----------------------------------|
-|    Main class     | GradleStartServer                  |
-|    VM options     | -Dfml.coreMods.load=net.malisis.core.asm.MalisisCorePlugin |
+|     Property      | Value                       |
+|:-----------------:|:----------------------------|
+|    Main class     | GradleStartServer           |
+|    VM options     | -Xincgc -Dfml.ignoreInvalidMinecraftCertificates=true -Dfml.coreMods.load=net.malisis.core.asm.MalisisCorePlugin |
 | Working directory | ./run (Included in project) |
-| Module classpath  | Almura-SDK (IntelliJ Only)             |
+| Module classpath  | AlmuraSDK  (IntelliJ Only)  |
 
 
 ## Building
 __Note:__ If you do not have [Gradle] installed then use ./gradlew for Unix systems or Git Bash and gradlew.bat for Windows systems in place of any 'gradle' command.
 
-In order to build Almura-SDK you simply need to run the `gradle` command. You can find the compiled JAR files in `./build/libs` but in most cases you'll only need 'almura-x.x-xxxx-x.x.x.jar'.
+In order to build AlmuraSDK  you simply need to run the `gradle` command. You can find the compiled JAR files in `./build/libs` but in most cases you'll only need 'almura-x.x-xxxx-x.x.x.jar'.
 
 ## FAQ
 __Why do I get `javac: source release 1.7 requires target release 1.7` in IntelliJ when running the client configuration?__

@@ -1,3 +1,8 @@
+/**
+ * This file is part of AlmuraSDK, All Rights Reserved.
+ *
+ * Copyright (c) 2015 AlmuraDev <http://github.com/AlmuraDev/>
+ */
 package net.eq2online.permissions;
 
 import java.io.*;
