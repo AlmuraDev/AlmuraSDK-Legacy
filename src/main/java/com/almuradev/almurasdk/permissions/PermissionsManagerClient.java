@@ -164,7 +164,7 @@ public class PermissionsManagerClient implements PermissionsManager {
             }
         }
 
-        if (!Minecraft.getMinecraft().inGameHasFocus) {
+        if (Minecraft.getMinecraft().inGameHasFocus) {
             this.menuTicks = 0;
         } else {
             this.menuTicks++;
@@ -196,7 +196,7 @@ public class PermissionsManagerClient implements PermissionsManager {
      * Schedule a permissions refresh
      */
     public void scheduleRefresh() {
-        this.pendingRefreshTicks = 2;
+        this.pendingRefreshTicks = 40;
     }
 
     /**

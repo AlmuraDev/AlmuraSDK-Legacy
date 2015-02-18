@@ -1,11 +1,7 @@
-/**
- * This file is part of AlmuraSDK, All Rights Reserved.
- *
- * Copyright (c) 2015 AlmuraDev <http://github.com/AlmuraDev/>
- */
 package net.eq2online.permissions;
 
 import java.io.*;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Set;
 import java.util.TreeSet;
@@ -103,7 +99,23 @@ public class ReplicatedPermissionsContainer implements Serializable
     {
         try
         {
+            System.out.println(Arrays.toString(data));
             ObjectInputStream inputStream = new ObjectInputStream(new ByteArrayInputStream(data));
+            return (ReplicatedPermissionsContainer)inputStream.readObject();
+        }
+        catch (IOException | ClassNotFoundException | ClassCastException ignored) {
+            ignored.printStackTrace();
+        }
+
+        return null;
+    }
+
+    public static ReplicatedPermissionsContainer fromBytesWithDiscriminator(byte[] data) {
+        try
+        {
+            final byte[] actualBytes = Arrays.copyOfRange(data, 1, data.length);
+            System.out.println(Arrays.toString(actualBytes));
+            ObjectInputStream inputStream = new ObjectInputStream(new ByteArrayInputStream(Arrays.copyOfRange(data, 1, data.length)));
             return (ReplicatedPermissionsContainer)inputStream.readObject();
         }
         catch (IOException | ClassNotFoundException | ClassCastException ignored) {
