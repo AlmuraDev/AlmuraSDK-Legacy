@@ -27,7 +27,7 @@ public class PermissibleAllMods implements Permissible {
     }
 
     @Override
-    public void registerPermissions(PermissionsManagerClient permissionsManager) {
+    public void registerPermissions(PermissionsManager permissionsManager) {
     }
 
     @Override
