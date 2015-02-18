@@ -23,7 +23,7 @@ public class ClientProxy extends CommonProxy {
     public void onPreInitialization(FMLPreInitializationEvent event) {
         super.onPreInitialization(event);
         FMLCommonHandler.instance().bus().register(this);
-        
+
         // TODO Register with FML better
         PermissionsManagerClient.getInstance();
         myPermissible = new Permissible() {
@@ -38,7 +38,7 @@ public class ClientProxy extends CommonProxy {
             }
 
             @Override
-            public void registerPermissions(PermissionsManagerClient permissionsManager) {
+            public void registerPermissions(PermissionsManager permissionsManager) {
                 permissionsManager.registerModPermission(this, "open");
             }
 

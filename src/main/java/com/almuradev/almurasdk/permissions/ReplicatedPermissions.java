@@ -13,11 +13,6 @@ package com.almuradev.almurasdk.permissions;
 public interface ReplicatedPermissions extends Permissions {
 
     /**
-     * Get the time that this object was received from the remote authority
-     */
-    long getReplicationTime();
-
-    /**
      * Return true if this permissions object is valid (within cache period)
      */
     boolean isValid();

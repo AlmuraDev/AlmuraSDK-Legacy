@@ -28,9 +28,9 @@ public interface Permissible {
      * supports. This method should call back against the supplied permissions manager to register the permissions to
      * be sent to the server when connecting.
      *
-     * @param permissionsManager Client permissions manager
+     * @param permissionsManager permissions manager
      */
-    void registerPermissions(PermissionsManagerClient permissionsManager);
+    void registerPermissions(PermissionsManager permissionsManager);
 
     /**
      * Called when the permissions set is cleared

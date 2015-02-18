@@ -8,6 +8,7 @@ package com.almuradev.almurasdk;
 import com.almuradev.almurasdk.client.ClientProxy;
 import com.almuradev.almurasdk.server.ServerProxy;
 import cpw.mods.fml.common.Mod;
+import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
@@ -24,7 +25,7 @@ public class AlmuraSDK {
     @SidedProxy(clientSide = ClientProxy.CLASSPATH, serverSide = ServerProxy.CLASSPATH)
     public static CommonProxy PROXY;
 
-    @Mod.EventHandler
+    @EventHandler
     public void onPreInitializationEvent(FMLPreInitializationEvent event) {
         PROXY.onPreInitialization(event);
     }

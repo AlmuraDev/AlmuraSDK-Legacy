@@ -64,11 +64,6 @@ public class PermissionsManagerClient implements PermissionsManager {
     private Map<String, ServerPermissions> serverPermissions = new HashMap<>();
 
     /**
-     * Last time onTick was called, used to detect tamper condition if no ticks are being received
-     */
-    private long lastTickTime = System.currentTimeMillis();
-
-    /**
      * Delay counter for when joining a server
      */
     private int pendingRefreshTicks = 0;
@@ -107,21 +102,18 @@ public class PermissionsManagerClient implements PermissionsManager {
         if (mod == null) {
             mod = allMods;
         }
-        String modName = mod.getPermissibleModName();
 
-        ServerPermissions modPermissions = this.serverPermissions.get(modName);
-        return modPermissions != null ? modPermissions : this.localPermissions;
+        return getPermissions(mod.getPermissibleModName());
     }
 
     @Override
-    public Long getPermissionUpdateTime(Permissible mod) {
-        if (mod == null) {
-            mod = allMods;
+    public Permissions getPermissions(String permModId) {
+        if (permModId == null) {
+            permModId = allMods.getPermissibleModName();
         }
-        String modName = mod.getPermissibleModName();
 
-        ServerPermissions modPermissions = this.serverPermissions.get(modName);
-        return modPermissions != null ? modPermissions.getReplicationTime() : 0;
+        ServerPermissions modPermissions = this.serverPermissions.get(permModId);
+        return modPermissions != null ? modPermissions : this.localPermissions;
     }
 
     @Override
@@ -142,8 +134,6 @@ public class PermissionsManagerClient implements PermissionsManager {
 
     @SubscribeEvent
     public void onTickEvent(TickEvent.ClientTickEvent event) {
-        this.lastTickTime = System.currentTimeMillis();
-
         if (this.pendingRefreshTicks > 0) {
             this.pendingRefreshTicks--;
 
@@ -251,6 +241,7 @@ public class PermissionsManagerClient implements PermissionsManager {
      *
      * @param permission
      */
+    @Override
     public void registerPermission(String permission) {
         this.registerModPermission(allMods, permission);
     }
@@ -262,6 +253,7 @@ public class PermissionsManagerClient implements PermissionsManager {
      * @param mod
      * @param permission
      */
+    @Override
     public void registerModPermission(Permissible mod, String permission) {
         if (mod == null) {
             mod = allMods;
@@ -286,6 +278,7 @@ public class PermissionsManagerClient implements PermissionsManager {
      *
      * @param permission Permission to check for
      */
+    @Override
     public boolean getPermission(String permission) {
         return this.getModPermission(allMods, permission);
     }
@@ -296,6 +289,7 @@ public class PermissionsManagerClient implements PermissionsManager {
      * @param permission   Permission to check for
      * @param defaultValue Value to return if the permission is not set
      */
+    @Override
     public boolean getPermission(String permission, boolean defaultValue) {
         return this.getModPermission(allMods, permission, defaultValue);
     }
@@ -307,6 +301,7 @@ public class PermissionsManagerClient implements PermissionsManager {
      * @param mod
      * @param permission
      */
+    @Override
     public boolean getModPermission(Permissible mod, String permission) {
         if (mod == null) {
             mod = PermissionsManagerClient.allMods;
@@ -325,6 +320,7 @@ public class PermissionsManagerClient implements PermissionsManager {
      * @param modName
      * @param permission
      */
+    @Override
     public boolean getModPermission(String modName, String permission) {
         Permissible mod = this.registeredClientMods.get(modName);
         return mod != null && this.getModPermission(mod, permission);
@@ -339,6 +335,7 @@ public class PermissionsManagerClient implements PermissionsManager {
      * @param permission
      * @param defaultValue
      */
+    @Override
     public boolean getModPermission(Permissible mod, String permission, boolean defaultValue) {
         if (mod == null) {
             mod = allMods;
@@ -360,6 +357,7 @@ public class PermissionsManagerClient implements PermissionsManager {
      * @param modName
      * @param permission
      */
+    @Override
     public boolean getModPermission(String modName, String permission, boolean defaultValue) {
         Permissible mod = this.registeredClientMods.get(modName);
         return mod != null ? this.getModPermission(mod, permission, defaultValue) : defaultValue;

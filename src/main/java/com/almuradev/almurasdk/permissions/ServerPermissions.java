@@ -43,7 +43,7 @@ public class ServerPermissions implements ReplicatedPermissions {
     /**
      * Time to cache server responses by default
      */
-    protected long cacheTime = 10L * 60L * 1000L;    // 10 minutes
+    protected long cacheTime = 10L * 60L * 500L;    // 5 minutes
 
     /**
      * Time to wait when refreshing server permissions before trying again
@@ -99,11 +99,6 @@ public class ServerPermissions implements ReplicatedPermissions {
         Permission perm = this.permissions.getPermission(permission);
 
         return perm != null ? perm.getValue() : defaultValue;
-    }
-
-    @Override
-    public long getReplicationTime() {
-        return this.createdTime;
     }
 
     @Override
