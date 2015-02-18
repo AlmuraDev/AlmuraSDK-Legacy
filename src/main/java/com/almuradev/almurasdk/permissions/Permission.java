@@ -54,7 +54,7 @@ public class Permission {
      * Create a new child node with the specified name and value
      *
      * @param permissionName Name of the permission node
-     * @param value Initial value for the permission node
+     * @param value          Initial value for the permission node
      */
     public Permission(String permissionName, boolean value) {
         this.isRootNode = false;

@@ -16,14 +16,10 @@ import cpw.mods.fml.relauncher.SideOnly;
 import net.eq2online.permissions.ReplicatedPermissionsContainer;
 import net.minecraft.client.Minecraft;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 
 /**
- * This class manages permissions on the client, it is a singleton class which can manage permissions for multiple 
+ * This class manages permissions on the client, it is a singleton class which can manage permissions for multiple
  * client mods. It manages the client/server communication used to replicate permissions and serves as a hub for
  * permissions objects which keep track of the permissions available on the client
  *
@@ -180,7 +176,7 @@ public class PermissionsManagerClient implements PermissionsManager {
      * Register a new client mod with this manager
      *
      * @param modName Mod name
-     * @param mod Mod instance
+     * @param mod     Mod instance
      */
     private void registerClientMod(String modName, Permissible mod) {
         if (this.registeredClientMods.containsKey(modName)) {
@@ -297,7 +293,7 @@ public class PermissionsManagerClient implements PermissionsManager {
     /**
      * Get the value of the specified permission for all mods and return the default value if the permission is not set
      *
-     * @param permission Permission to check for
+     * @param permission   Permission to check for
      * @param defaultValue Value to return if the permission is not set
      */
     public boolean getPermission(String permission, boolean defaultValue) {

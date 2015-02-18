@@ -27,7 +27,7 @@ public class S00PacketPermissionsQuery implements IMessage, IMessageHandler<S00P
 
     @Override
     public void fromBytes(ByteBuf buf) {
-        container = ReplicatedPermissionsContainer.fromBytes(buf.array());
+        container = ReplicatedPermissionsContainer.fromBytes(buf.readBytes(buf.readableBytes()).array());
     }
 
     @Override

@@ -11,44 +11,69 @@ import java.util.TreeSet;
  *
  * @author Adam Mummery-Smith
  */
-public class ReplicatedPermissionsContainer implements Serializable
-{
+public class ReplicatedPermissionsContainer implements Serializable {
+    public static final String CHANNEL = "PERMISSIONSREPL";
     /**
      * Serial version UID to suppoer Serializable interface
      */
     private static final long serialVersionUID = -764940324881984960L;
-
     /**
      * Mod name
      */
     public String modName = "all";
-
     /**
      * Mod version
      */
     public Float modVersion = 0.0F;
-
     /**
      * List of permissions to replicate, prepend "-" for a negated permission and "+" for a granted permission
      */
-    public Set<String> permissions = new TreeSet<String>();
-
+    public Set<String> permissions = new TreeSet<>();
     /**
      * Amount of time in seconds that the client will trust these permissions for before requesting an update
      */
-    public long remoteCacheTimeSeconds = 600L;	// 10 minutes
+    public long remoteCacheTimeSeconds = 600L;    // 10 minutes
 
-    public static final String CHANNEL = "PERMISSIONSREPL";
-
-    public ReplicatedPermissionsContainer()
-    {
+    public ReplicatedPermissionsContainer() {
     }
 
-    public ReplicatedPermissionsContainer(String modName, Float modVersion, Collection<String> permissions)
-    {
+    public ReplicatedPermissionsContainer(String modName, Float modVersion, Collection<String> permissions) {
         this.modName = modName;
         this.modVersion = modVersion;
         this.permissions.addAll(permissions);
+    }
+
+    /**
+     * Deserialises a replicated permissions container from a byte array
+     *
+     * @param data Byte array containing the serialised data
+     * @return new container or null if deserialisation failed
+     */
+    public static ReplicatedPermissionsContainer fromBytes(byte[] data) {
+        try {
+            ObjectInputStream inputStream = new ObjectInputStream(new ByteArrayInputStream(data));
+            return (ReplicatedPermissionsContainer) inputStream.readObject();
+        } catch (IOException | ClassNotFoundException | ClassCastException ignored) {
+        }
+
+        return null;
+    }
+
+    /**
+     * Deserialises a replicated permissions container from a byte array, stripping away the discriminator.
+     *
+     * @param data Byte array containing the serialised data
+     * @return new container or null if deserialisation failed
+     */
+    public static ReplicatedPermissionsContainer fromBytesWithDiscriminator(byte[] data) {
+        try {
+            final byte[] actualBytes = Arrays.copyOfRange(data, 1, data.length);
+            ObjectInputStream inputStream = new ObjectInputStream(new ByteArrayInputStream(actualBytes));
+            return (ReplicatedPermissionsContainer) inputStream.readObject();
+        } catch (IOException | ClassNotFoundException | ClassCastException ignored) {
+        }
+
+        return null;
     }
 
     /**
@@ -56,16 +81,14 @@ public class ReplicatedPermissionsContainer implements Serializable
      *
      * @param permissions
      */
-    public void addAll(Collection<String> permissions)
-    {
+    public void addAll(Collection<String> permissions) {
         this.permissions.addAll(permissions);
     }
 
     /**
      * Check and correct
      */
-    public void sanitise()
-    {
+    public void sanitise() {
         if (this.modName == null || this.modName.length() < 1) this.modName = "all";
         if (this.modVersion == null || this.modVersion < 0.0F) this.modVersion = 0.0F;
         if (this.remoteCacheTimeSeconds < 0) this.remoteCacheTimeSeconds = 600L;
@@ -76,52 +99,14 @@ public class ReplicatedPermissionsContainer implements Serializable
      *
      * @return
      */
-    public byte[] getBytes()
-    {
-        try
-        {
+    public byte[] getBytes() {
+        try {
             ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
             new ObjectOutputStream(byteStream).writeObject(this);
             return byteStream.toByteArray();
+        } catch (IOException ignored) {
         }
-        catch (IOException e) {}
 
         return new byte[0];
-    }
-
-    /**
-     * Deserialises a replicated permissions container from a byte array
-     *
-     * @param data Byte array containing the serialised data
-     * @return new container or null if deserialisation failed
-     */
-    public static ReplicatedPermissionsContainer fromBytes(byte[] data)
-    {
-        try
-        {
-            System.out.println(Arrays.toString(data));
-            ObjectInputStream inputStream = new ObjectInputStream(new ByteArrayInputStream(data));
-            return (ReplicatedPermissionsContainer)inputStream.readObject();
-        }
-        catch (IOException | ClassNotFoundException | ClassCastException ignored) {
-            ignored.printStackTrace();
-        }
-
-        return null;
-    }
-
-    public static ReplicatedPermissionsContainer fromBytesWithDiscriminator(byte[] data) {
-        try
-        {
-            final byte[] actualBytes = Arrays.copyOfRange(data, 1, data.length);
-            System.out.println(Arrays.toString(actualBytes));
-            ObjectInputStream inputStream = new ObjectInputStream(new ByteArrayInputStream(Arrays.copyOfRange(data, 1, data.length)));
-            return (ReplicatedPermissionsContainer)inputStream.readObject();
-        }
-        catch (IOException | ClassNotFoundException | ClassCastException ignored) {
-            ignored.printStackTrace();
-        }
-
-        return null;
     }
 }

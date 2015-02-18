@@ -10,10 +10,7 @@ import com.almuradev.almurasdk.Filesystem;
 import com.google.common.base.Optional;
 import net.malisis.core.client.gui.GuiTexture;
 import net.malisis.core.client.gui.MalisisGui;
-import net.malisis.core.client.gui.component.UIComponent;
 import net.malisis.core.client.gui.icon.GuiIcon;
-import net.malisis.core.renderer.animation.Animation;
-import net.malisis.core.renderer.animation.transformation.SizeTransform;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.input.Keyboard;
@@ -93,3 +90,4 @@ public abstract class SimpleGui extends MalisisGui {
         mc.setIngameFocus();
     }
 }
+

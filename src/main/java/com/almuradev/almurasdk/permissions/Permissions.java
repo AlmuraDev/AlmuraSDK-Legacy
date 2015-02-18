@@ -30,9 +30,8 @@ public interface Permissions {
     /**
      * Returns true if the authority says we have this permission or if the permission is not specified by the authority returns the default value
      *
-     * @param permission Name of the permission to test for
+     * @param permission   Name of the permission to test for
      * @param defaultValue Value to return if the permission is NOT specified by the authority
-     *
      * @return State of the authority permission or default value if not specified
      */
     boolean hasPermission(String permission, boolean defaultValue);

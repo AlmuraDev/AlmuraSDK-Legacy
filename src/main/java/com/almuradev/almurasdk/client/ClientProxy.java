@@ -11,9 +11,6 @@ import com.almuradev.almurasdk.permissions.PermissionsManager;
 import com.almuradev.almurasdk.permissions.PermissionsManagerClient;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.common.gameevent.TickEvent;
-import net.minecraft.client.Minecraft;
 
 public class ClientProxy extends CommonProxy {
 
@@ -26,6 +23,7 @@ public class ClientProxy extends CommonProxy {
     public void onPreInitialization(FMLPreInitializationEvent event) {
         super.onPreInitialization(event);
         FMLCommonHandler.instance().bus().register(this);
+        
         // TODO Register with FML better
         PermissionsManagerClient.getInstance();
         myPermissible = new Permissible() {
@@ -51,17 +49,10 @@ public class ClientProxy extends CommonProxy {
 
             @Override
             public void onPermissionsChanged(PermissionsManager manager) {
-
+                System.out.println(manager.getPermissions(this).hasPermission("mod.backpack.open"));
             }
         };
 
         PermissionsManagerClient.getInstance().registerPermissible(myPermissible);
-    }
-
-    @SubscribeEvent
-    public void onTickEvent(TickEvent.ClientTickEvent event) {
-        if (Minecraft.getMinecraft().inGameHasFocus) {
-            System.out.println("Server says mod.backpack.open: " + PermissionsManagerClient.getInstance().getPermissions(myPermissible).hasPermission("mod.backpack.open"));
-        }
     }
 }
