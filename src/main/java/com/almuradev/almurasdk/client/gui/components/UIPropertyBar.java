@@ -3,7 +3,7 @@
  *
  * Copyright (c) 2015 AlmuraDev <http://github.com/AlmuraDev/>
  */
-package com.almuradev.almurasdk.gui.components;
+package com.almuradev.almurasdk.client.gui.components;
 
 import net.malisis.core.client.gui.GuiTexture;
 import net.malisis.core.client.gui.MalisisGui;

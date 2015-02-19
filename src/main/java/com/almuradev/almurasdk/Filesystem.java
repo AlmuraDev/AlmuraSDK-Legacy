@@ -5,7 +5,7 @@
  */
 package com.almuradev.almurasdk;
 
-import com.almuradev.almurasdk.gui.BufferedTexture;
+import com.almuradev.almurasdk.client.gui.BufferedTexture;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;

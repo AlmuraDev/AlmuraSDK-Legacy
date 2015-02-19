@@ -3,7 +3,7 @@
  *
  * Copyright (c) 2015 AlmuraDev <http://github.com/AlmuraDev/>
  */
-package com.almuradev.almurasdk.gui.util;
+package com.almuradev.almurasdk.client.gui.util;
 
 public class Colors {
 

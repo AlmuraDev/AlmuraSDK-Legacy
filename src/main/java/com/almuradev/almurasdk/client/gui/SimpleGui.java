@@ -3,7 +3,7 @@
  *
  * Copyright (c) 2015 AlmuraDev <http://github.com/AlmuraDev/>
  */
-package com.almuradev.almurasdk.gui;
+package com.almuradev.almurasdk.client.gui;
 
 import com.almuradev.almurasdk.AlmuraSDK;
 import com.almuradev.almurasdk.Filesystem;
