@@ -121,7 +121,17 @@ public class Filesystem {
 
     @SideOnly(Side.CLIENT)
     public static ResourceLocation registerTexture(String modid, String key, Path path) throws IOException {
-        final BufferedImage image = ImageIO.read(Files.newInputStream(path));
+        return registerTexture(modid, key, Files.newInputStream(path));
+    }
+
+    @SideOnly(Side.CLIENT)
+    public static ResourceLocation registerTexture(String modid, String key, String path) throws IOException {
+        return registerTexture(modid, key, Filesystem.class.getResourceAsStream(path));
+    }
+
+    @SideOnly(Side.CLIENT)
+    public static ResourceLocation registerTexture(String modid, String key, InputStream stream) throws IOException {
+        final BufferedImage image = ImageIO.read(stream);
         final ResourceLocation location = new ResourceLocation(modid, key);
         Minecraft.getMinecraft().getTextureManager().loadTexture(location, new BufferedTexture(location, image));
         return location;
