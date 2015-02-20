@@ -37,7 +37,6 @@ repositories {
 
 // Project dependencies
 dependencies {
-    compile 'com.almuradev:almurasdk:1.7.10-1277:dev'
     compile 'ninja.leaping.configurate:configurate-yaml:0.2'
 }
 
