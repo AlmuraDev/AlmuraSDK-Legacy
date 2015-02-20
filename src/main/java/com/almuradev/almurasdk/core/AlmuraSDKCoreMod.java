@@ -9,7 +9,7 @@ import cpw.mods.fml.relauncher.IFMLLoadingPlugin;
 
 import java.util.Map;
 
-public class AlmuraSDKCoreMod implements IFMLLoadingPlugin {
+public final class AlmuraSDKCoreMod implements IFMLLoadingPlugin {
 
     @Override
     public String[] getASMTransformerClass() {
@@ -32,6 +32,6 @@ public class AlmuraSDKCoreMod implements IFMLLoadingPlugin {
 
     @Override
     public String getAccessTransformerClass() {
-        return CommonAccessTransformer.CLASSPATH;
+        return CommonAccessTransformer.class.getName();
     }
 }

@@ -40,7 +40,8 @@ public abstract class SimpleGui extends MalisisGui {
 
     static {
         try {
-            final ResourceLocation loc = Filesystem.registerTexture(AlmuraSDK.MOD_ID, "textures/gui/gui.png", "/textures/gui/gui.png");
+            final ResourceLocation loc = Filesystem.registerTexture(AlmuraSDK.MOD_ID, "assets.almurasdk.texture.gui/gui.png",
+                                                                    "/assets.almurasdk.texture.gui/gui.png");
             final Dimension dim = Filesystem.getImageDimension(Filesystem.CONFIG_GUI_SPRITESHEET_PATH);
             TEXTURE_DEFAULT = new GuiTexture(loc, dim.width, dim.height);
         } catch (IOException e) {

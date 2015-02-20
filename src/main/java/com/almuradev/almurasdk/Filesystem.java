@@ -32,9 +32,6 @@ import java.util.List;
 
 public class Filesystem {
 
-    public static final Path CONFIG_PATH = Paths.get("config" + File.separator + AlmuraSDK.MOD_ID);
-    public static final Path CONFIG_GUI_SPRITESHEET_PATH = Paths.get(CONFIG_PATH.toString(), "images" + File.separator + "gui.png");
-
     public static DirectoryStream.Filter<Path> DIRECTORIES_ONLY_FILTER = new DirectoryStream.Filter<Path>() {
         @Override
         public boolean accept(Path entry) throws IOException {
