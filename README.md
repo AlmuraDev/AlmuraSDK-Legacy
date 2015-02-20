@@ -6,7 +6,7 @@ Almura SDK
 * [Gradle] 2.1+
 
 ## Cloning
-To clone AlmuraSDK, simply run `
+To clone AlmuraSDK, simply run `git clone --recursive git@github.com:AlmuraDev/AlmuraSDK.git`
 
 ## Setup
 __Note:__ If you do not have [Gradle] installed then use ./gradlew for Unix systems or Git Bash and gradlew.bat for Windows systems in place of any 'gradle' command.
@@ -74,7 +74,7 @@ __Why do I get `javac: source release 1.7 requires target release 1.7` in Intell
 
 >1. Go to 'File > Settings'.
 >2. Click the drop down for 'Compiler' on the left-hand side and select 'Java Compiler'.
->3. Select Obsidian and set the 'Target bytecode version' as '1.7'.
+>3. Select AlmuraSDK and set the 'Target bytecode version' as '1.7'.
 >4. Click Apply and OK and try running it again.
 
 __Why do I get `Zip file rt.jar failed to read properly` in IntelliJ?__
