@@ -1,7 +1,7 @@
-/**
+/*
  * This file is part of AlmuraSDK, All Rights Reserved.
  *
- * Copyright (c) 2015 AlmuraDev <http://github.com/AlmuraDev/>
+ * Copyright (c) 2015 AlmuraDev <http://beta.almuramc.com/>
  */
 package com.almuradev.almurasdk;
 
@@ -18,7 +18,7 @@ import org.apache.logging.log4j.Logger;
 @Mod(modid = AlmuraSDK.MOD_ID, name = "AlmuraSDK", version = "1.7.10-1277")
 public class AlmuraSDK {
 
-    public static final String MOD_ID = "almura_sdk";
+    public static final String MOD_ID = "almurasdk";
     public static final Logger LOGGER = LogManager.getLogger(AlmuraSDK.class);
     public static final SimpleNetworkWrapper NETWORK_PERMISSIONS = new SimpleNetworkWrapper("PERMISSIONSREPL");
 

@@ -1,7 +1,7 @@
-/**
+/*
  * This file is part of AlmuraSDK, All Rights Reserved.
  *
- * Copyright (c) 2015 AlmuraDev <http://github.com/AlmuraDev/>
+ * Copyright (c) 2015 AlmuraDev <http://beta.almuramc.com/>
  */
 package com.almuradev.almurasdk;
 

@@ -1,0 +1,16 @@
+[{
+  "modid": "almurasdk",
+  "name": "AlmuraSDK",
+  "description": "The official SDK for the Almura family of mods",
+  "version": "1.7.10-1277",
+  "credits": "",
+  "logoFile": "",
+  "mcversion": "1.7.10",
+  "url": "beta.almuramc.com",
+  "updateUrl": "",
+  "authorList": [ "AlmuraDev" ],
+  "parent": "",
+  "screenshots": [],
+  "dependencies": [ "MinecraftForge" ]
+}]
+

@@ -1,7 +1,7 @@
-/**
+/*
  * This file is part of AlmuraSDK, All Rights Reserved.
  *
- * Copyright (c) 2015 AlmuraDev <http://github.com/AlmuraDev/>
+ * Copyright (c) 2015 AlmuraDev <http://beta.almuramc.com/>
  */
 package com.almuradev.almurasdk;
 
@@ -26,35 +26,33 @@ import java.nio.channels.ReadableByteChannel;
 import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.*;
 import java.util.List;
 
-public class Filesystem {
+public final class FileSystem {
 
-    public static DirectoryStream.Filter<Path> DIRECTORIES_ONLY_FILTER = new DirectoryStream.Filter<Path>() {
+    public static final DirectoryStream.Filter<Path> FILTER_DIRECTORIES_ONLY = new DirectoryStream.Filter<Path>() {
         @Override
         public boolean accept(Path entry) throws IOException {
             return Files.isDirectory(entry);
         }
     };
 
-    public static DirectoryStream.Filter<Path> FILES_ONLY_FILTER = new DirectoryStream.Filter<Path>() {
+    public static final DirectoryStream.Filter<Path> FILTER_FILES_ONLY = new DirectoryStream.Filter<Path>() {
         @Override
         public boolean accept(Path entry) throws IOException {
             return !Files.isDirectory(entry);
         }
     };
 
-    public static DirectoryStream.Filter<Path> IMAGE_FILES_ONLY_FILTER = new DirectoryStream.Filter<Path>() {
+    public static final DirectoryStream.Filter<Path> FILTER_IMAGE_FILES_ONLY = new DirectoryStream.Filter<Path>() {
         @Override
         public boolean accept(Path entry) throws IOException {
             return entry.getFileName().toString().endsWith(".png") || entry.getFileName().toString().endsWith(".jpg");
         }
     };
 
-    protected Filesystem() {
-    }
+    public static final ResourceLocation LOCATION_GUI_SPRITE_SHEET = new ResourceLocation(AlmuraSDK.MOD_ID, "textures/gui/gui.png");
 
     public static Collection<URL> getURLs(Path path, String blob) {
         final List<URL> result = new ArrayList<>();
@@ -123,7 +121,7 @@ public class Filesystem {
 
     @SideOnly(Side.CLIENT)
     public static ResourceLocation registerTexture(String modid, String key, String path) throws IOException {
-        return registerTexture(modid, key, Filesystem.class.getResourceAsStream(path));
+        return registerTexture(modid, key, FileSystem.class.getResourceAsStream(path));
     }
 
     @SideOnly(Side.CLIENT)
