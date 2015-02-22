@@ -1,0 +1,8 @@
+{
+  "package": "com.almuradev.almurasdk.core.mixin",
+  "mixins": [
+  ],
+  "client": [
+    "client.MixinMinecraft"
+  ]
+}

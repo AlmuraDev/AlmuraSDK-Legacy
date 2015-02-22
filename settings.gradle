@@ -1,1 +1,2 @@
-include "MalisisCore"
+rootProject.name = theName
+include "Mixin"

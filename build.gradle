@@ -2,21 +2,23 @@ buildscript {
     repositories {
         mavenCentral()
         maven {
-            name = 'sonatype-nexus'
-            url = 'https://oss.sonatype.org/content/repositories/public/'
-        }
-        maven {
             name = 'forge-repo'
             url = 'http://files.minecraftforge.net/maven/'
+        }
+        maven {
+            name = 'sonatype-nexus'
+            url = 'https://oss.sonatype.org/content/repositories/public/'
         }
         jcenter()
     }
     dependencies {
+        classpath 'com.github.jengelman.gradle.plugins:shadow:1.2.0'
         classpath 'net.minecraftforge.gradle:ForgeGradle:1.2-SNAPSHOT'
         classpath 'nl.javadude.gradle.plugins:license-gradle-plugin:0.11.0'
-        classpath 'com.github.jengelman.gradle.plugins:shadow:1.2.0'
     }
 }
+
+evaluationDependsOn('Mixin')
 
 defaultTasks 'licenseFormat', 'build'
 
@@ -62,10 +64,10 @@ configurations.all {
 
 dependencies {
     compile 'com.flowpowered:flow-math:1.0.1-SNAPSHOT'
-    compile 'net.malisis:malisiscore:1.7.10-0.10.6-SNAPSHOT'
+    compile 'net.malisis:malisiscore:1.7.10-0.10.6-SNAPSHOT:dev'
     compile 'ninja.leaping.configurate:configurate-core:0.2'
     compile 'ninja.leaping.configurate:configurate-yaml:0.2'
-    compile 'org.spongepowered:mixin:0.1-SNAPSHOT'
+    compile project('Mixin')
 }
 
 shadowJar  {
@@ -74,9 +76,9 @@ shadowJar  {
     exclude 'GradleStart**'
     dependencies {
         include(dependency('com.flowpowered:flow-math'))
-        include(dependency('org.spongepowered:mixin'))
         include(dependency('ninja.leaping.configurate:configurate-yaml'))
         include(dependency('ninja.leaping.configurate:configurate-core'))
+        include(project('Mixin'))
     }
     classifier = ''
 
@@ -137,6 +139,7 @@ task copySrgs(type: Copy, dependsOn: "genSrgs") {
     include '**/*.srg'
     into 'build/srgs'
 }
+
 setupDecompWorkspace.dependsOn copySrgs
 setupDevWorkspace.dependsOn copySrgs
 
@@ -147,6 +150,34 @@ def manifestEntries = [
         "Implementation-Version": version,
         "Implementation-Vendor": url,
         "FMLCorePlugin": "com.almuradev.almurasdk.core.AlmuraSDKCoreMod",
+        "FMLCorePluginContainsFMLMod": 'true',
         "TweakClass": "org.spongepowered.asm.launch.MixinTweaker",
         "TweakOrder": "10000"
 ]
+
+jar {
+    from project("Mixin").sourceSets.main.output
+
+    manifest.mainAttributes(manifestEntries)
+
+    classifier = 'release'
+}
+
+task deobfJar(type: Jar) {
+    from project("Mixin").sourceSets.main.output
+    from sourceSets.main.output
+}
+
+
+task sourceJar(type: Jar, dependsOn: sourceMainJava) {
+    from "build/sources/java"
+    from "build/resources/main/java"
+    from project("Mixin").sourceSets.main.java
+    from project("Mixin").sourceSets.main.resources
+    classifier = "sources"
+}
+
+artifacts {
+    archives deobfJar
+    archives sourceJar
+}

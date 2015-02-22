@@ -1,0 +1,3 @@
+[submodule "Mixin"]
+	path = Mixin
+	url = git@github.com:SpongePowered/Mixin.git
