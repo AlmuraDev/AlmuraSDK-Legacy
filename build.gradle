@@ -163,6 +163,12 @@ jar {
     classifier = 'release'
 }
 
+if (JavaVersion.current().isJava8Compatible()) {
+    tasks.withType(Javadoc) {
+        options.addStringOption('Xdoclint:none', '-quiet')
+    }
+}
+
 task deobfJar(type: Jar) {
     from project("Mixin").sourceSets.main.output
     from sourceSets.main.output

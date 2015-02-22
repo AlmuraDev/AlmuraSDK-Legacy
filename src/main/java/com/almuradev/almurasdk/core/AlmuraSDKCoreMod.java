@@ -6,11 +6,15 @@
 package com.almuradev.almurasdk.core;
 
 import cpw.mods.fml.relauncher.IFMLLoadingPlugin;
+import cpw.mods.fml.relauncher.IFMLLoadingPlugin.SortingIndex;
+import cpw.mods.fml.relauncher.IFMLLoadingPlugin.MCVersion;
 import org.spongepowered.asm.launch.MixinBootstrap;
 import org.spongepowered.asm.mixin.MixinEnvironment;
 
 import java.util.Map;
 
+@SortingIndex(10000)
+@MCVersion("1.7.10")
 public final class AlmuraSDKCoreMod implements IFMLLoadingPlugin {
 
     public AlmuraSDKCoreMod() {
