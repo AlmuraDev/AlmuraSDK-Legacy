@@ -25,7 +25,10 @@
 package com.almuradev.almurasdk;
 
 import com.almuradev.almurasdk.client.ClientProxy;
+import com.almuradev.almurasdk.permissions.PermissionsManager;
+import com.almuradev.almurasdk.permissions.PermissionsManagerClient;
 import com.almuradev.almurasdk.server.ServerProxy;
+import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.SidedProxy;
@@ -47,5 +50,14 @@ public final class AlmuraSDK {
     @EventHandler
     public void onPreInitializationEvent(FMLPreInitializationEvent event) {
         PROXY.onPreInitializationEvent(event);
+    }
+
+    public static PermissionsManager getPermissionsManager() {
+        switch (FMLCommonHandler.instance().getEffectiveSide()) {
+            case CLIENT:
+                return PermissionsManagerClient.getInstance();
+            default:
+                throw new RuntimeException("Permissions management has not been developed for side [" + FMLCommonHandler.instance().getEffectiveSide().name() + "].");
+        }
     }
 }
