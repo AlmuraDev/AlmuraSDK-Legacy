@@ -32,7 +32,7 @@ archivesBaseName = 'almurasdk'
 
 ext.minecraftVersion = '1.7.10'
 ext.forgeVersion = '10.13.2.1291'
-version = minecraftVersion.substring(0, 3) + '-' + forgeVersion.substring(forgeVersion.size() - 4)
+version = minecraftVersion.substring(0, 3) + '-' + forgeVersion.substring(forgeVersion.size() - 4) + '-SNAPSHOT'
 
 ext.mixinSrg = new File(project.buildDir, "tmp/mixins/mixins.srg")
 ext.mixinRefMap = new File(project.buildDir, "tmp/mixins/mixins.almurasdk.refmap.json")
@@ -183,7 +183,99 @@ task sourceJar(type: Jar, dependsOn: sourceMainJava) {
     classifier = "sources"
 }
 
+task javadocJar(type: Jar, dependsOn: javadoc) {
+	from javadoc.destinationDir
+	classifier = "javadoc"
+}
+
 artifacts {
     archives deobfJar
     archives sourceJar
+    archives javadocJar
+}
+
+// Artifact deployment
+uploadArchives {
+    repositories.mavenDeployer {
+
+        // Tasks and variables based on if release or snapshot
+        if (version.endsWith('-SNAPSHOT')) {
+            // Set variable to snapshots repository URL
+            ext.sonatypeUrl = 'https://oss.sonatype.org/content/repositories/snapshots'
+        } else {
+            // Set variable to releases repository URL
+            ext.sonatypeUrl = 'https://oss.sonatype.org/service/local/staging/deploy/maven2'
+
+            // Deployment signing
+            signing {
+                // Check if uploadArchives task is used
+                required { isReleaseVersion && gradle.taskGraph.hasTask("uploadArchives") }
+
+                // Sign JAR artifacts
+                sign configurations.archives
+
+                // Sign Maven POM
+                beforeDeployment {
+                    org.gradle.api.artifacts.maven.MavenDeployment deployment -> signing.signPom(deployment)
+                }
+            }
+        }
+
+        // Set login credentials for repository
+        repository(url: sonatypeUrl) {
+            authentication(userName: System.getenv("sonatypeUsername"), password: System.getenv("sonatypePassword"))
+        }
+
+        // Maven POM generation
+        pom.project {
+            name projectName
+            artifactId archivesBaseName
+            packaging packaging
+            inceptionYear inceptionYear
+            url url
+            description project.ext.description
+
+            scm {
+                connection 'scm:git:git://github.com/AlmuraDev/AlmuraSDK.git'
+                developerConnection 'scm:git:ssh://git@github.com:AlmuraDev/AlmuraSDK.git'
+                url 'https://github.com/AlmuraDev/AlmuraSDK'
+            }
+
+            licenses {
+                license {
+                    name 'The MIT License'
+                    url 'http://www.tldrlegal.com/license/mit-license'
+                    distribution 'repo'
+                }
+            }
+
+            developers {
+                developer {
+                    id 'Zidane'
+                    name 'Chris Sanders'
+                    email 'zidane@outlook.com'
+                }
+                developer {
+                    id 'Grinch'
+                    name 'Steven Downer'
+                    email 'grinch@outlook.com'
+                }
+                developer {
+                    id 'Dockter'
+                    name 'Mike Howe'
+                    email 'dockter@almuramc.com'
+                }
+            }
+
+            organization {
+                name organization
+                url url
+            }
+
+            issueManagement {
+                system 'github'
+                url 'https://github.com/AlmuraDev/AlmuraSDK/issues'
+            }
+        }
+    }
 }
