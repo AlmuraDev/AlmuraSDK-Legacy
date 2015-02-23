@@ -110,6 +110,11 @@ license {
 }
 
 reobf {
+    if (!project.mixinSrg.exists()) {
+        project.mixinSrg.mkdirs()
+        project.mixinSrg.createNewFile()
+    }
+
     reobf.addExtraSrgFile project.mixinSrg
 
     reobf(shadowJar) { spec ->

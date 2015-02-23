@@ -71,6 +71,13 @@ public final class FileSystem {
         }
     };
 
+    public static final DirectoryStream.Filter<Path> FILTER_YAML_FILES_ONLY = new DirectoryStream.Filter<Path>() {
+        @Override
+        public boolean accept(Path entry) throws IOException {
+            return entry.getFileName().toString().endsWith(".yml");
+        }
+    };
+
     public static final ResourceLocation LOCATION_GUI_SPRITE_SHEET = new ResourceLocation(AlmuraSDK.MOD_ID, "textures/gui/gui.png");
 
     public static Collection<URL> getURLs(Path path, String blob) {

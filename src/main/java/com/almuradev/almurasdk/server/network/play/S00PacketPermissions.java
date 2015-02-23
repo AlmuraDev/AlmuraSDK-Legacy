@@ -69,7 +69,8 @@ public class S00PacketPermissions implements IMessage, IMessageHandler<S00Packet
 
             try {
                 permissions = new ServerPermissions(message.container);
-            } catch (Exception ignored) {
+            } catch (Exception ex) {
+                ex.printStackTrace();
             }
 
             if (permissions != null && permissions.getModName() != null) {
