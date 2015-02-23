@@ -78,8 +78,6 @@ public final class FileSystem {
         }
     };
 
-    public static final ResourceLocation LOCATION_GUI_SPRITE_SHEET = new ResourceLocation(AlmuraSDK.MOD_ID, "textures/gui/gui.png");
-
     public static Collection<URL> getURLs(Path path, String blob) {
         final List<URL> result = new ArrayList<>();
         try (DirectoryStream<Path> stream = Files.newDirectoryStream(path, blob)) {
