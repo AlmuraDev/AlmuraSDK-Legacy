@@ -194,19 +194,14 @@ artifacts {
     archives javadocJar
 }
 
-// Artifact deployment
 uploadArchives {
     repositories.mavenDeployer {
 
-        // Tasks and variables based on if release or snapshot
         if (version.endsWith('-SNAPSHOT')) {
-            // Set variable to snapshots repository URL
             ext.sonatypeUrl = 'https://oss.sonatype.org/content/repositories/snapshots'
         } else {
-            // Set variable to releases repository URL
             ext.sonatypeUrl = 'https://oss.sonatype.org/service/local/staging/deploy/maven2'
 
-            // Deployment signing
             signing {
                 // Check if uploadArchives task is used
                 required { isReleaseVersion && gradle.taskGraph.hasTask("uploadArchives") }
@@ -228,12 +223,12 @@ uploadArchives {
 
         // Maven POM generation
         pom.project {
-            name projectName
+            name theName
             artifactId archivesBaseName
             packaging packaging
             inceptionYear inceptionYear
             url url
-            description project.ext.description
+            description description
 
             scm {
                 connection 'scm:git:git://github.com/AlmuraDev/AlmuraSDK.git'
