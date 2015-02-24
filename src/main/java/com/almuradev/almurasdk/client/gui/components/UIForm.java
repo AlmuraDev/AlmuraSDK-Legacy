@@ -100,7 +100,7 @@ public class UIForm extends UIBackgroundContainer {
         contentContainer.setBackgroundAlpha(0);
 
         // Add controls
-        this.add(titleContainer);
+        this.add(titleContainer, contentContainer);
 
         // Set form properties
         setColor(Integer.MIN_VALUE);
