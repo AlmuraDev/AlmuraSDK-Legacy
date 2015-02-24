@@ -81,7 +81,7 @@ public class UIForm extends UIBackgroundContainer {
         super(parent);
 
         // Setup controls
-        titleContainer = new DraggableBackgroundContainer(parent, this, title, showCloseButton);
+        titleContainer = new DraggableBackgroundContainer(parent, showCloseButton);
         contentContainer = new UIBackgroundContainer(parent);
 
         // Setup title
@@ -166,7 +166,7 @@ public class UIForm extends UIBackgroundContainer {
 
         private CloseButton titleCloseButton;
 
-        public DraggableBackgroundContainer(SimpleGui parent, UIForm parentForm, String title, boolean showCloseButton) {
+        public DraggableBackgroundContainer(SimpleGui parent, boolean showCloseButton) {
             super(parent);
 
             if (showCloseButton) {
