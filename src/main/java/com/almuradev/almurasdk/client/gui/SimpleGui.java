@@ -87,7 +87,14 @@ public abstract class SimpleGui extends MalisisGui {
     }
 
     /**
-     * Creates a gui
+     * Creates a gui with an absent parent
+     */
+    public SimpleGui() {
+        this(null);
+    }
+
+    /**
+     * Creates a gui with a parent
      *
      * @param parent the {@link SimpleGui} that we came from
      */

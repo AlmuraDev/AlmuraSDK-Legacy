@@ -30,7 +30,7 @@ import com.google.common.eventbus.Subscribe;
 import net.malisis.core.client.gui.Anchor;
 import net.malisis.core.client.gui.component.UIComponent;
 import net.malisis.core.client.gui.component.container.UIBackgroundContainer;
-import net.malisis.core.client.gui.component.decoration.UILabel;
+import net.malisis.core.client.gui.component.container.UIContainer;
 import net.malisis.core.client.gui.component.interaction.UIButton;
 import net.malisis.core.client.gui.element.SimpleGuiShape;
 import net.malisis.core.client.gui.event.MouseEvent;
@@ -41,7 +41,7 @@ import org.lwjgl.input.Keyboard;
 public class UIForm extends UIBackgroundContainer {
 
     private static final int TITLE_BAR_HEIGHT = 13;
-    private final UIBackgroundContainer contentContainer;
+    private final UIBackgroundContainer contentContainer, titleContainer;
     private int dragX, dragY;
     private boolean dragging = false;
 
@@ -81,8 +81,13 @@ public class UIForm extends UIBackgroundContainer {
         super(parent);
 
         // Setup controls
-        final DraggableBackgroundContainer titleContainer = new DraggableBackgroundContainer(parent, title, showCloseButton);
+        titleContainer = new DraggableBackgroundContainer(parent, this, title, showCloseButton);
         contentContainer = new UIBackgroundContainer(parent);
+
+        // Setup title
+        setTitle(title);
+        titleLabel.setColor(Colors.BLACK);
+        titleLabel.setPosition(4, 1, Anchor.LEFT | Anchor.MIDDLE);
 
         setSize(width, height);
 
@@ -95,7 +100,7 @@ public class UIForm extends UIBackgroundContainer {
         contentContainer.setBackgroundAlpha(0);
 
         // Add controls
-        this.add(titleContainer, contentContainer);
+        this.add(titleContainer);
 
         // Set form properties
         setColor(Integer.MIN_VALUE);
@@ -112,33 +117,11 @@ public class UIForm extends UIBackgroundContainer {
     }
 
     /**
-     * Gets the title of the form
-     *
-     * @return The title of the form
-     */
-    @Override
-    public String getTitle() {
-        return titleLabel.getText();
-    }
-
-    /**
-     * Sets the title of the form
-     *
-     * @param title The title to use for the form
-     * @return The UIForm
-     */
-    @Override
-    public UIForm setTitle(String title) {
-        titleLabel.setText(title);
-        return this;
-    }
-
-    /**
      * Sets the width of the form
      *
      * @param width The width to set the form to
      */
-    public void setWidth(int width) {
+    public final void setWidth(int width) {
         this.setSize(width, height);
     }
 
@@ -147,7 +130,7 @@ public class UIForm extends UIBackgroundContainer {
      *
      * @param height The height to set the form to
      */
-    public void setHeight(int height) {
+    public final void setHeight(int height) {
         this.setSize(width, height);
     }
 
@@ -161,9 +144,21 @@ public class UIForm extends UIBackgroundContainer {
     }
 
     @Override
-    public UIForm setSize(int width, int height) {
+    public final UIForm setSize(int width, int height) {
         super.setSize(width, height);
         contentContainer.setSize(INHERITED, getHeight() - TITLE_BAR_HEIGHT);
+        return this;
+    }
+
+    @Override
+    public final UIBackgroundContainer setTitle(String title) {
+        if (title == null || title.isEmpty()) {
+            titleContainer.remove(titleLabel);
+            return this;
+        }
+
+        titleLabel.setText(title);
+        titleContainer.add(titleLabel);
         return this;
     }
 
@@ -171,12 +166,8 @@ public class UIForm extends UIBackgroundContainer {
 
         private CloseButton titleCloseButton;
 
-        public DraggableBackgroundContainer(SimpleGui parent, String title, boolean showCloseButton) {
+        public DraggableBackgroundContainer(SimpleGui parent, UIForm parentForm, String title, boolean showCloseButton) {
             super(parent);
-
-            titleLabel = new UILabel(parent, title);
-            titleLabel.setColor(Colors.BLACK);
-            titleLabel.setPosition(4, 1, Anchor.LEFT | Anchor.MIDDLE);
 
             if (showCloseButton) {
                 titleCloseButton = new CloseButton(parent);
@@ -185,8 +176,6 @@ public class UIForm extends UIBackgroundContainer {
                 titleCloseButton.register(this);
                 add(titleCloseButton);
             }
-
-            add(titleLabel);
         }
 
         @Subscribe
@@ -212,7 +201,7 @@ public class UIForm extends UIBackgroundContainer {
                 return;
             }
 
-            final UIComponent parentContainer = getParent().getParent();
+            final UIComponent<?> parentContainer = getParent().getParent();
             if (parentContainer == null) {
                 return;
             }
