@@ -25,12 +25,11 @@
 package com.almuradev.almurasdk.client.gui.components;
 
 import com.almuradev.almurasdk.client.gui.SimpleGui;
-import com.almuradev.almurasdk.client.gui.util.Colors;
+import com.almuradev.almurasdk.util.Colors;
 import com.google.common.eventbus.Subscribe;
 import net.malisis.core.client.gui.Anchor;
 import net.malisis.core.client.gui.component.UIComponent;
 import net.malisis.core.client.gui.component.container.UIBackgroundContainer;
-import net.malisis.core.client.gui.component.container.UIContainer;
 import net.malisis.core.client.gui.component.interaction.UIButton;
 import net.malisis.core.client.gui.element.SimpleGuiShape;
 import net.malisis.core.client.gui.event.MouseEvent;
@@ -39,7 +38,7 @@ import net.minecraft.client.Minecraft;
 import org.lwjgl.input.Keyboard;
 
 public class UIForm extends UIBackgroundContainer {
-
+    public static final com.almuradev.almurasdk.util.Color ALMURA_BLUE = new com.almuradev.almurasdk.util.Color(9283532);
     private static final int TITLE_BAR_HEIGHT = 13;
     private final UIBackgroundContainer contentContainer, titleContainer;
     private int dragX, dragY;
@@ -86,13 +85,13 @@ public class UIForm extends UIBackgroundContainer {
 
         // Setup title
         setTitle(title);
-        titleLabel.setColor(Colors.BLACK);
+        titleLabel.setColor(Colors.BLACK.getGuiColorCode());
         titleLabel.setPosition(4, 1, Anchor.LEFT | Anchor.MIDDLE);
 
         setSize(width, height);
 
         titleContainer.setSize(INHERITED, TITLE_BAR_HEIGHT);
-        titleContainer.setColor(Colors.ALMURA_BLUE);
+        titleContainer.setColor(ALMURA_BLUE.getGuiColorCode());
         titleContainer.register(this);
 
         contentContainer.setSize(INHERITED, getHeight() - TITLE_BAR_HEIGHT);
