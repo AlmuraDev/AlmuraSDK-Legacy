@@ -122,6 +122,7 @@ reobf {
     }
 }
 
+def defaultEncoding = 'UTF-8'
 compileJava {
     options.compilerArgs += [
             '-Xlint:all',
@@ -131,7 +132,11 @@ compileJava {
             "-AoutRefMapFile=${project.mixinRefMap.getCanonicalPath()}"
     ]
     options.deprecation = true
-    options.encoding = 'utf8'
+    options.encoding = defaultEncoding
+}
+
+javadoc {
+    options.encoding = defaultEncoding
 }
 
 afterEvaluate {
