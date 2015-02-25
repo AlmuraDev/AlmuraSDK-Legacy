@@ -29,6 +29,8 @@ public enum Colors {
     ITALIC(EnumChatFormatting.ITALIC.getFormattingCode(), 20, true),
     RESET(EnumChatFormatting.RESET.getFormattingCode(), 21);
 
+    public static final char CHAR_COLOR_BEGIN = '§';
+    public static final int INTEGER_COLOR_NONE = -1;
     private static final Map<Integer, Colors> COLOR_BY_ID;
     private static final Map<Character, Colors> COLOR_BY_CHAR;
     private final char chatCode;
@@ -49,7 +51,7 @@ public enum Colors {
         this.chatCode = chatCode;
         this.chatIntCode = chatIntCode;
         this.isFormattingColor = false;
-        this.guiColorCode = -1;
+        this.guiColorCode = INTEGER_COLOR_NONE;
     }
 
     Colors(char chatCode, int chatIntCode, int guiColorCode) {
@@ -63,7 +65,7 @@ public enum Colors {
         this.chatCode = chatCode;
         this.chatIntCode = chatIntCode;
         this.isFormattingColor = isFormattingColor;
-        this.guiColorCode = -1;
+        this.guiColorCode = INTEGER_COLOR_NONE;
     }
 
     public char getChatCode() {
@@ -88,6 +90,6 @@ public enum Colors {
 
     @Override
     public String toString() {
-        return new String(new char[]{'§', chatCode});
+        return new String(new char[]{CHAR_COLOR_BEGIN, chatCode});
     }
 }
