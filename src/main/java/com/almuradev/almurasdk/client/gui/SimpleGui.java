@@ -27,12 +27,14 @@ package com.almuradev.almurasdk.client.gui;
 import com.almuradev.almurasdk.AlmuraSDK;
 import com.almuradev.almurasdk.FileSystem;
 import com.google.common.base.Optional;
+import cpw.mods.fml.common.FMLCommonHandler;
 import net.malisis.core.client.gui.GuiTexture;
 import net.malisis.core.client.gui.MalisisGui;
 import net.malisis.core.client.gui.icon.GuiIcon;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.GuiOpenEvent;
+import net.minecraftforge.common.MinecraftForge;
 import org.lwjgl.input.Keyboard;
 
 import java.io.IOException;
@@ -119,10 +121,17 @@ public abstract class SimpleGui extends MalisisGui {
         if (mc.thePlayer != null) {
             mc.thePlayer.closeScreen();
         }
+
+        onClose();
+
         mc.displayGuiScreen(parent.isPresent() ? parent.get() : null);
         if (!parent.isPresent()) {
             mc.setIngameFocus();
         }
+    }
+
+    public void onClose() {
+
     }
 }
 
