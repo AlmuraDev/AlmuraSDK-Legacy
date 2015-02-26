@@ -10,7 +10,7 @@ script:
   - gradle setupCIWorkspace
   - gradle build -PbuildNumber=$TRAVIS_BUILD_NUMBER
 after_success:
-  - "[[ $TRAVIS_PULL_REQUEST == false ]] && [[ $TRAVIS_REPO_SLUG == AlmuraDev/AlmuraSDK ]] && [[ $TRAVIS_BRANCH == master ]] && gradle uploadArchives"
+  - "[[ $TRAVIS_PULL_REQUEST == false ]] && [[ $TRAVIS_REPO_SLUG == AlmuraDev/AlmuraSDK ]] && [[ $TRAVIS_BRANCH == master ]] && gradle :uploadArchives"
 env:
   global:
     - secure: "RL2m5gKOsNr/nsPD3tNW0AbcMJKF91m+3pDDwPQsTYuahmZaRg4BBUiO6b/B6wD164zW9LWjEDuDEhH534Zzjarwdtb8LBJapQMGcFV9Kb7gjfxTiQ69CVaFmBsKKZj8el5wNYXeoH1qjVXsxmQ+4C5UaU/8zzQcTO2I1OhdkFs="
