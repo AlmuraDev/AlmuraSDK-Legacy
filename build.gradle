@@ -31,7 +31,7 @@ group = 'com.almuradev'
 archivesBaseName = 'almurasdk'
 
 ext.minecraftVersion = '1.7.10'
-ext.forgeVersion = '10.13.2.1291'
+ext.forgeVersion = '10.13.2.1307'
 version = minecraftVersion + '-' + forgeVersion.substring(forgeVersion.size() - 4) + '-SNAPSHOT'
 
 ext.mixinSrg = new File(project.buildDir, "tmp/mixins/mixins.srg")
@@ -54,7 +54,7 @@ repositories {
 }
 
 minecraft {
-    version = project.ext.minecraftVersion + '-' + project.ext.forgeVersion
+    version = project.ext.minecraftVersion + '-' + project.ext.forgeVersion + '-' + project.ext.minecraftVersion
     runDir = "run/"
 }
 
