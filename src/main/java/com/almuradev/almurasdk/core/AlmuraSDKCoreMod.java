@@ -25,8 +25,8 @@
 package com.almuradev.almurasdk.core;
 
 import cpw.mods.fml.relauncher.IFMLLoadingPlugin;
-import cpw.mods.fml.relauncher.IFMLLoadingPlugin.SortingIndex;
 import cpw.mods.fml.relauncher.IFMLLoadingPlugin.MCVersion;
+import cpw.mods.fml.relauncher.IFMLLoadingPlugin.SortingIndex;
 import org.spongepowered.asm.launch.MixinBootstrap;
 import org.spongepowered.asm.mixin.MixinEnvironment;
 
@@ -43,7 +43,7 @@ public final class AlmuraSDKCoreMod implements IFMLLoadingPlugin {
 
     @Override
     public String[] getASMTransformerClass() {
-        return new String[] {
+        return new String[]{
                 MixinBootstrap.TRANSFORMER_CLASS
         };
     }

@@ -24,7 +24,12 @@
  */
 package net.eq2online.permissions;
 
-import java.io.*;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Set;
@@ -36,6 +41,7 @@ import java.util.TreeSet;
  * @author Adam Mummery-Smith
  */
 public class ReplicatedPermissionsContainer implements Serializable {
+
     public static final String CHANNEL = "PERMISSIONSREPL";
     /**
      * Serial version UID to suppoer Serializable interface
@@ -113,9 +119,15 @@ public class ReplicatedPermissionsContainer implements Serializable {
      * Check and correct
      */
     public void sanitise() {
-        if (this.modName == null || this.modName.length() < 1) this.modName = "all";
-        if (this.modVersion == null || this.modVersion < 0.0F) this.modVersion = 0.0F;
-        if (this.remoteCacheTimeSeconds < 0) this.remoteCacheTimeSeconds = 600L;
+        if (this.modName == null || this.modName.length() < 1) {
+            this.modName = "all";
+        }
+        if (this.modVersion == null || this.modVersion < 0.0F) {
+            this.modVersion = 0.0F;
+        }
+        if (this.remoteCacheTimeSeconds < 0) {
+            this.remoteCacheTimeSeconds = 600L;
+        }
     }
 
     /**

@@ -24,16 +24,15 @@
  */
 package com.almuradev.almurasdk;
 
-import com.almuradev.almurasdk.client.gui.BufferedTexture;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.texture.SimpleTexture;
+import net.minecraft.client.renderer.texture.TextureUtil;
+import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.util.ResourceLocation;
 
-import javax.imageio.ImageIO;
-import javax.imageio.ImageReader;
-import javax.imageio.stream.ImageInputStream;
-import java.awt.*;
+import java.awt.Dimension;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -45,8 +44,15 @@ import java.nio.channels.ReadableByteChannel;
 import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
+
+import javax.imageio.ImageIO;
+import javax.imageio.ImageReader;
+import javax.imageio.stream.ImageInputStream;
 
 public final class FileSystem {
 
@@ -154,5 +160,21 @@ public final class FileSystem {
         final ResourceLocation location = new ResourceLocation(modid, key);
         Minecraft.getMinecraft().getTextureManager().loadTexture(location, new BufferedTexture(location, image));
         return location;
+    }
+
+    @SideOnly(Side.CLIENT)
+    private static final class BufferedTexture extends SimpleTexture {
+
+        private final BufferedImage image;
+
+        public BufferedTexture(ResourceLocation key, BufferedImage image) {
+            super(key);
+            this.image = image;
+        }
+
+        @Override
+        public void loadTexture(IResourceManager p_110551_1_) throws IOException {
+            TextureUtil.uploadTextureImageAllocate(getGlTextureId(), image, false, false);
+        }
     }
 }

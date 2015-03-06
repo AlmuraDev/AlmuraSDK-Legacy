@@ -47,17 +47,18 @@ public final class AlmuraSDK {
     @SidedProxy(clientSide = ClientProxy.CLASSPATH, serverSide = ServerProxy.CLASSPATH)
     public static CommonProxy PROXY;
 
-    @EventHandler
-    public void onPreInitializationEvent(FMLPreInitializationEvent event) {
-        PROXY.onPreInitializationEvent(event);
-    }
-
     public static PermissionsManager getPermissionsManager() {
         switch (FMLCommonHandler.instance().getEffectiveSide()) {
             case CLIENT:
                 return PermissionsManagerClient.getInstance();
             default:
-                throw new RuntimeException("Permissions management has not been developed for side [" + FMLCommonHandler.instance().getEffectiveSide().name() + "].");
+                throw new RuntimeException(
+                        "Permissions management has not been developed for side [" + FMLCommonHandler.instance().getEffectiveSide().name() + "].");
         }
+    }
+
+    @EventHandler
+    public void onPreInitializationEvent(FMLPreInitializationEvent event) {
+        PROXY.onPreInitializationEvent(event);
     }
 }

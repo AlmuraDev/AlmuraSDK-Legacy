@@ -31,11 +31,15 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetSocketAddress;
 import java.net.Socket;
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * TODO When Almura is a Sponge plugin, use the Query event and remove this
+ * TODO When AlmuraSDK is a Sponge plugin, use the Query event and remove this
  */
 public class Query {
 

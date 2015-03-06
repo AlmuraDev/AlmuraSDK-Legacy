@@ -35,7 +35,11 @@ import cpw.mods.fml.relauncher.SideOnly;
 import net.eq2online.permissions.ReplicatedPermissionsContainer;
 import net.minecraft.client.Minecraft;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * This class manages permissions on the client, it is a singleton class which can manage permissions for multiple

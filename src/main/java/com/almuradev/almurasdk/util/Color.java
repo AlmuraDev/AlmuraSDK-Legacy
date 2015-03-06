@@ -25,6 +25,7 @@
 package com.almuradev.almurasdk.util;
 
 public class Color {
+
     public static final char CHAR_COLOR_BEGIN = '§';
     public static final char CHAR_COLOR_BLACK = '0';
     public static final int INTEGER_COLOR_BLACK = 0;

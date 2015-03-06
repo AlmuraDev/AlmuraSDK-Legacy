@@ -30,7 +30,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-public class LanguageRegistry {
+public final class LanguageRegistry {
 
     /*
      * Language -> Key (example: itemGroup.fruit.apple) -> value (example: "Apple")

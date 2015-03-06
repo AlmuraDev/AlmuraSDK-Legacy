@@ -27,6 +27,7 @@ package com.almuradev.almurasdk.util;
 import net.minecraft.util.EnumChatFormatting;
 
 public final class Colors {
+
     public static final Color BLACK = new Color(EnumChatFormatting.BLACK.getFormattingCode(), 0, 0);
     public static final Color DARK_BLUE = new Color(EnumChatFormatting.DARK_BLUE.getFormattingCode(), 1, 170);
     public static final Color DARK_GREEN = new Color(EnumChatFormatting.DARK_GREEN.getFormattingCode(), 2, 43520);
