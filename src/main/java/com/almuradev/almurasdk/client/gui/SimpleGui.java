@@ -105,14 +105,14 @@ public abstract class SimpleGui extends MalisisGui {
         mc = Minecraft.getMinecraft();
     }
 
-    public static int getPaddedX(UIComponent component, int padding) {
+    public static int getPaddedX(UIComponent<?> component, int padding) {
         if (component == null) {
             return 0;
         }
         return component.getX() + component.getWidth() + padding;
     }
 
-    public static int getPaddedY(UIComponent component, int padding) {
+    public static int getPaddedY(UIComponent<?> component, int padding) {
         if (component == null) {
             return 0;
         }

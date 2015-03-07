@@ -39,7 +39,7 @@ import org.lwjgl.input.Keyboard;
 
 public class UIForm extends UIBackgroundContainer {
 
-    public static final com.almuradev.almurasdk.util.Color ALMURA_BLUE = new com.almuradev.almurasdk.util.Color(9283532);
+    public static final com.almuradev.almurasdk.util.Color ALMURA_BLUE = new com.almuradev.almurasdk.util.Color("almura_blue", 9283532);
     private static final int TITLE_BAR_HEIGHT = 13;
     private final UIBackgroundContainer contentContainer, titleContainer;
     private int dragX, dragY;
