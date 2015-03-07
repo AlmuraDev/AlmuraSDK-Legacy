@@ -32,9 +32,9 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.Collections;
 import java.util.List;
+import java.util.regex.Pattern;
 
 public final class Colors {
-
     public static final Color BLACK = new Color("black", EnumChatFormatting.BLACK.getFormattingCode(), 0, 0);
     public static final Color DARK_BLUE = new Color("dark_blue", EnumChatFormatting.DARK_BLUE.getFormattingCode(), 1, 170);
     public static final Color DARK_GREEN = new Color("dark_green", EnumChatFormatting.DARK_GREEN.getFormattingCode(), 2, 43520);
@@ -58,6 +58,8 @@ public final class Colors {
     public static final Color ITALIC = new Color("italic", EnumChatFormatting.ITALIC.getFormattingCode(), 20, true);
     public static final Color RESET = new Color("reset", EnumChatFormatting.RESET.getFormattingCode(), 21);
     private static final List<Color> COLORS;
+    private static final Pattern STRIP_COLOR_PATTERN = Pattern.compile("(?i)" + String.valueOf(Color.CHAR_COLOR_BEGIN) + "[0-9A-FK-OR]");
+
 
     static {
         COLORS = Lists.newArrayList();
@@ -90,5 +92,13 @@ public final class Colors {
         }
 
         return Optional.absent();
+    }
+
+    public static String stripColors(String colorized) {
+        if (colorized == null) {
+            return null;
+        }
+
+        return STRIP_COLOR_PATTERN.matcher(colorized).replaceAll("");
     }
 }
