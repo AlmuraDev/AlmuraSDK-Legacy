@@ -29,6 +29,7 @@ import com.almuradev.almurasdk.FileSystem;
 import com.google.common.base.Optional;
 import net.malisis.core.client.gui.GuiTexture;
 import net.malisis.core.client.gui.MalisisGui;
+import net.malisis.core.client.gui.component.UIComponent;
 import net.malisis.core.client.gui.icon.GuiIcon;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ResourceLocation;
@@ -102,6 +103,20 @@ public abstract class SimpleGui extends MalisisGui {
         this.parent = Optional.fromNullable(parent);
         renderer.setDefaultTexture(TEXTURE_SPRITESHEET);
         mc = Minecraft.getMinecraft();
+    }
+
+    public static int getPaddedX(UIComponent component, int padding) {
+        if (component == null) {
+            return 0;
+        }
+        return component.getX() + component.getWidth() + padding;
+    }
+
+    public static int getPaddedY(UIComponent component, int padding) {
+        if (component == null) {
+            return 0;
+        }
+        return component.getY() + component.getHeight() + padding;
     }
 
     /**
