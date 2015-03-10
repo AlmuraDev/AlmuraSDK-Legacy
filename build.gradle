@@ -184,6 +184,13 @@ task deobfJar(type: Jar) {
     from sourceSets.main.output
 }
 
+task sourceJar(type: Jar, dependsOn: sourceMainJava) {
+    from "build/sources/java"
+    from "build/resources/main/java"
+    from project("Mixin").sourceSets.main.java
+    from project("Mixin").sourceSets.main.resources
+    classifier = "sources"
+}
 
 task javadocJar(type: Jar, dependsOn: javadoc) {
     from javadoc.destinationDir 
@@ -194,6 +201,7 @@ task javadocJar(type: Jar, dependsOn: javadoc) {
 
 artifacts {
     archives deobfJar
+    archives sourceJar
     archives javadocJar
 }
 
