@@ -36,16 +36,9 @@ import java.util.Map;
 @MCVersion("1.7.10")
 public final class AlmuraSDKCoreMod implements IFMLLoadingPlugin {
 
-    public AlmuraSDKCoreMod() {
-        MixinBootstrap.init();
-        MixinEnvironment.getCurrentEnvironment().addConfiguration("mixins.almurasdk.json");
-    }
-
     @Override
     public String[] getASMTransformerClass() {
-        return new String[]{
-                MixinBootstrap.TRANSFORMER_CLASS
-        };
+        return null;
     }
 
     @Override

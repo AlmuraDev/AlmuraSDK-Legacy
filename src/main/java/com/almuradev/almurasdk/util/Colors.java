@@ -68,7 +68,10 @@ public final class Colors {
         for (Field field : declaredFields) {
             if (Modifier.isStatic(field.getModifiers())) {
                 try {
-                    COLORS.add((Color) field.get(null));
+                    final Object obj = field.get(null);
+                    if (obj instanceof Color) {
+                        COLORS.add((Color) obj);
+                    }
                 } catch (IllegalAccessException e) {
                     e.printStackTrace();
                 }
