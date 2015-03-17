@@ -109,6 +109,7 @@ license {
     }
 }
 
+reobf.dependsOn('deobfJar')
 reobf {
     if (!project.mixinSrg.exists()) {
         project.mixinSrg.mkdirs()
@@ -200,7 +201,6 @@ task javadocJar(type: Jar, dependsOn: javadoc) {
 }
 
 artifacts {
-    archives deobfJar
     archives sourceJar
     archives javadocJar
 }
