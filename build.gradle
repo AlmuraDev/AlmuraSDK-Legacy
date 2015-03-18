@@ -130,6 +130,10 @@ def manifestEntries = [
         "FMLCorePluginContainsFMLMod": 'true'
 ]
 
+jar {
+    manifest.mainAttributes(manifestEntries)
+}
+
 task sourceJar(type: Jar, dependsOn: sourceMainJava) {
     from "build/sources/java"
     from "build/resources/main/java"
