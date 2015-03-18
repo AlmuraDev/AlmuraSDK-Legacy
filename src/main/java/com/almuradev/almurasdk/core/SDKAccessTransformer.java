@@ -28,9 +28,9 @@ import cpw.mods.fml.common.asm.transformers.AccessTransformer;
 
 import java.io.IOException;
 
-public final class CommonAccessTransformer extends AccessTransformer {
+public final class SDKAccessTransformer extends AccessTransformer {
 
-    public CommonAccessTransformer() throws IOException {
+    public SDKAccessTransformer() throws IOException {
         super("almurasdk_at.cfg");
     }
 }

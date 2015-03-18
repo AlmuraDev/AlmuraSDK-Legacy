@@ -27,8 +27,6 @@ package com.almuradev.almurasdk.core;
 import cpw.mods.fml.relauncher.IFMLLoadingPlugin;
 import cpw.mods.fml.relauncher.IFMLLoadingPlugin.MCVersion;
 import cpw.mods.fml.relauncher.IFMLLoadingPlugin.SortingIndex;
-import org.spongepowered.asm.launch.MixinBootstrap;
-import org.spongepowered.asm.mixin.MixinEnvironment;
 
 import java.util.Map;
 
@@ -57,6 +55,6 @@ public final class AlmuraSDKCoreMod implements IFMLLoadingPlugin {
 
     @Override
     public String getAccessTransformerClass() {
-        return CommonAccessTransformer.class.getName();
+        return SDKAccessTransformer.class.getName();
     }
 }

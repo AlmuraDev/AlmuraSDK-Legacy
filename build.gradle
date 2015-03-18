@@ -68,7 +68,7 @@ dependencies {
 }
 
 shadowJar  {
-    duplicatesStrategy "exclude" 
+    duplicatesStrategy 'exclude' 
     exclude 'META-INF/*.DSA'
     exclude 'META-INF/*.RSA'
     exclude 'GradleStart**'
@@ -81,7 +81,7 @@ shadowJar  {
 	classifier = ''
 }
 
-build.dependsOn(shadowJar)
+reobf.dependsOn shadowJar
 
 processResources {
     inputs.property "version", version
