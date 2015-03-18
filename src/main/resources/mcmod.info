@@ -11,7 +11,7 @@
   "authorList": [ "AlmuraDev" ],
   "parent": "",
   "screenshots": [],
-  "requiredMods": [ "Forge", "MalisisCore" ],
-  "dependencies": [ "Forge", "MalisisCore" ],
+  "requiredMods": [ "Forge", "malisiscore" ],
+  "dependencies": [ "Forge", "malisiscore" ],
   "useDependencyInformation": "true"
 }]
