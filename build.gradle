@@ -34,9 +34,6 @@ ext.minecraftVersion = '1.7.10'
 ext.forgeVersion = '10.13.2.1307'
 version = minecraftVersion + '-' + forgeVersion.substring(forgeVersion.size() - 4) + '-SNAPSHOT'
 
-ext.mixinSrg = new File(project.buildDir, "tmp/mixins/mixins.srg")
-ext.mixinRefMap = new File(project.buildDir, "tmp/mixins/mixins.almurasdk.refmap.json")
-
 sourceCompatibility = '1.7'
 targetCompatibility = '1.7'
 
@@ -71,6 +68,7 @@ dependencies {
 }
 
 shadowJar  {
+    duplicatesStrategy "exclude" 
     exclude 'META-INF/*.DSA'
     exclude 'META-INF/*.RSA'
     exclude 'GradleStart**'
@@ -80,9 +78,7 @@ shadowJar  {
         include(dependency('ninja.leaping.configurate:configurate-core'))
         include(project('Mixin'))
     }
-    classifier = ''
-
-    from project.mixinRefMap
+	classifier = ''
 }
 
 build.dependsOn(shadowJar)
@@ -109,27 +105,12 @@ license {
     }
 }
 
-reobf {
-    if (!project.mixinSrg.exists()) {
-        project.mixinSrg.mkdirs()
-        project.mixinSrg.createNewFile()
-    }
-
-    reobf.addExtraSrgFile project.mixinSrg
-
-    reobf(shadowJar) { spec ->
-        spec.classpath = configurations.compile
-    }
-}
-
 def defaultEncoding = 'UTF-8'
 compileJava {
     options.compilerArgs += [
             '-Xlint:all',
             '-Xlint:-path',
-            '-Xlint:-processing',
-            "-AoutSrgFile=${project.mixinSrg.getCanonicalPath()}",
-            "-AoutRefMapFile=${project.mixinRefMap.getCanonicalPath()}"
+            '-Xlint:-processing'
     ]
     options.deprecation = true
     options.encoding = defaultEncoding
@@ -139,20 +120,6 @@ javadoc {
     options.encoding = defaultEncoding
 }
 
-afterEvaluate {
-    tasks.compileJava.options.compilerArgs += "-AreobfSrgFile=${tasks.reobf.srg}"
-}
-
-task copySrgs(type: Copy, dependsOn: "genSrgs") {
-    from plugins.getPlugin("forge").delayedFile("{SRG_DIR}")
-
-    include '**/*.srg'
-    into 'build/srgs'
-}
-
-setupDecompWorkspace.dependsOn copySrgs
-setupDevWorkspace.dependsOn copySrgs
-
 def manifestEntries = [
         "Built-By": System.properties['user.name'],
         "Created-By": System.properties['java.vm.version'] + " (" + System.properties['java.vm.vendor'] + ")",
@@ -160,29 +127,8 @@ def manifestEntries = [
         "Implementation-Version": version,
         "Implementation-Vendor": url,
         "FMLCorePlugin": "com.almuradev.almurasdk.core.AlmuraSDKCoreMod",
-        "FMLCorePluginContainsFMLMod": 'true',
-        "TweakClass": "org.spongepowered.asm.launch.MixinTweaker",
-        "TweakOrder": "10000"
+        "FMLCorePluginContainsFMLMod": 'true'
 ]
-
-jar {
-    from project("Mixin").sourceSets.main.output
-
-    manifest.mainAttributes(manifestEntries)
-
-    classifier = 'release'
-}
-
-if (JavaVersion.current().isJava8Compatible()) {
-    tasks.withType(Javadoc) {
-        options.addStringOption('Xdoclint:none', '-quiet')
-    }
-}
-
-task deobfJar(type: Jar) {
-    from project("Mixin").sourceSets.main.output
-    from sourceSets.main.output
-}
 
 task sourceJar(type: Jar, dependsOn: sourceMainJava) {
     from "build/sources/java"
@@ -200,13 +146,11 @@ task javadocJar(type: Jar, dependsOn: javadoc) {
 }
 
 artifacts {
-    archives deobfJar
     archives sourceJar
     archives javadocJar
 }
 
 uploadArchives {
-    dependsOn reobf
     repositories.mavenDeployer {
         if (version.endsWith('-SNAPSHOT')) {
             ext.sonatypeUrl = 'https://oss.sonatype.org/content/repositories/snapshots'

@@ -1,9 +1,0 @@
-{
-  "package": "com.almuradev.almurasdk.core.mixin",
-  "mixins": [
-  ],
-  "server": [
-  ],
-  "client": [
-  ]
-}
