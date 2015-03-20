@@ -119,7 +119,6 @@ compileJava {
 
 javadoc {
     options.encoding = defaultEncoding
-    from project("Mixin").tasks.javadoc.destinationDir
 }
 
 def manifestEntries = [
