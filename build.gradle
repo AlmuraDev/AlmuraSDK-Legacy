@@ -65,6 +65,7 @@ dependencies {
     compile 'net.malisis:malisiscore:1.7.10-0.10.6-SNAPSHOT:dev'
     compile 'ninja.leaping.configurate:configurate-core:0.2'
     compile 'ninja.leaping.configurate:configurate-yaml:0.2'
+    compile project('Mixin')
 }
 
 shadowJar  {
@@ -76,6 +77,7 @@ shadowJar  {
         include(dependency('com.flowpowered:flow-math'))
         include(dependency('ninja.leaping.configurate:configurate-yaml'))
         include(dependency('ninja.leaping.configurate:configurate-core'))
+        include(project('Mixin'))
     }
 	classifier = ''
 }
@@ -117,6 +119,7 @@ compileJava {
 
 javadoc {
     options.encoding = defaultEncoding
+    from project("Mixin").tasks.javadoc.destinationDir
 }
 
 def manifestEntries = [
@@ -136,12 +139,16 @@ jar {
 task sourceJar(type: Jar, dependsOn: sourceMainJava) {
     from "build/sources/java"
     from "build/resources/main/java"
+    from project("Mixin").sourceSets.main.java
+    from project("Mixin").sourceSets.main.resources
     classifier = "sources"
 }
 
 task javadocJar(type: Jar, dependsOn: javadoc) {
-    from javadoc.destinationDir 
+    from javadoc.destinationDir
+    from project("Mixin").tasks.javadoc.destinationDir
     classifier = "javadoc"
+    dependsOn "Mixin:javadoc"
 }
 
 artifacts {
