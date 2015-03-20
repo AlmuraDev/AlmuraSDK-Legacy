@@ -44,5 +44,6 @@ public final class Functions {
         }
     };
 
-    private Functions() {}
+    private Functions() {
+    }
 }

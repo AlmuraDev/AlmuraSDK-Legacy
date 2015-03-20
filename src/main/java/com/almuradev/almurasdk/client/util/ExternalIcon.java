@@ -41,6 +41,7 @@ import javax.imageio.ImageIO;
 
 @SideOnly(Side.CLIENT)
 public class ExternalIcon extends MalisisIcon {
+
     private final Path root;
 
     public ExternalIcon(String key, Path root) {

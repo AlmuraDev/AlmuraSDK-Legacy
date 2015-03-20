@@ -32,7 +32,6 @@ import net.malisis.core.client.gui.component.UIComponent;
 import net.malisis.core.client.gui.component.container.UIBackgroundContainer;
 import net.malisis.core.client.gui.component.interaction.UIButton;
 import net.malisis.core.client.gui.element.SimpleGuiShape;
-import net.malisis.core.client.gui.event.MouseEvent;
 import net.malisis.core.util.MouseButton;
 import net.minecraft.client.Minecraft;
 import org.lwjgl.input.Keyboard;
@@ -178,38 +177,41 @@ public class UIForm extends UIBackgroundContainer {
             }
         }
 
-        @Subscribe
-        public void onPress(MouseEvent.Press event) {
-            if (titleCloseButton != null && titleCloseButton.isInsideBounds(event.getX(), event.getY())) {
+        @Override
+        public boolean onClick(int x, int y) {
+            if (titleCloseButton != null && titleCloseButton.isInsideBounds(x, y)) {
                 dragging = false;
-                return;
+                return false;
             }
             dragging = true;
-            dragX = relativeX(event.getX());
-            dragY = relativeY(event.getY());
+            dragX = relativeX(x);
+            dragY = relativeY(y);
+            return true;
         }
 
-        @Subscribe
-        public void onDrag(MouseEvent.Drag event) {
+        @Override
+        //TODO Grinch, this now has snapshot/live values and may need to be re-done
+        public boolean onDrag(int lastX, int lastY, int x, int y, MouseButton button) {
             // Do not drag if not the left mouse button
-            if (!dragging || event.getButton() != MouseButton.LEFT) {
-                return;
+            if (!dragging || button != MouseButton.LEFT) {
+                return false;
             }
 
             // Do not drag if inside the close button
-            if (titleCloseButton != null && titleCloseButton.isInsideBounds(event.getX(), event.getY())) {
-                return;
+            if (titleCloseButton != null && titleCloseButton.isInsideBounds(x, y)) {
+                return false;
             }
 
             final UIComponent<?> parentContainer = getParent().getParent();
             if (parentContainer == null) {
-                return;
+                return false;
             }
 
-            final int xPos = parentContainer.relativeX(event.getX()) - dragX;
-            final int yPos = parentContainer.relativeY(event.getY()) - dragY;
+            final int xPos = parentContainer.relativeX(x) - dragX;
+            final int yPos = parentContainer.relativeY(y) - dragY;
 
             getParent().setPosition(xPos < 0 ? 0 : xPos, yPos < 0 ? 0 : yPos, Anchor.NONE);
+            return true;
         }
 
         @Subscribe

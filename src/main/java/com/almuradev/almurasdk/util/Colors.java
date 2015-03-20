@@ -35,6 +35,7 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 public final class Colors {
+
     public static final Color BLACK = new Color("black", EnumChatFormatting.BLACK.getFormattingCode(), 0, 0);
     public static final Color DARK_BLUE = new Color("dark_blue", EnumChatFormatting.DARK_BLUE.getFormattingCode(), 1, 170);
     public static final Color DARK_GREEN = new Color("dark_green", EnumChatFormatting.DARK_GREEN.getFormattingCode(), 2, 43520);

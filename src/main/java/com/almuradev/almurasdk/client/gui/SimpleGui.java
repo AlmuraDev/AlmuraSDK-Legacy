@@ -120,12 +120,6 @@ public abstract class SimpleGui extends MalisisGui {
     }
 
     /**
-     * Used to construct this {@link com.almuradev.almurasdk.client.gui.SimpleGui}. Must be called before displaying
-     * to the screen.
-     */
-    protected abstract void buildGui();
-
-    /**
      * Closes this {@link com.almuradev.almurasdk.client.gui.SimpleGui} and displays the parent, if present.
      */
     @Override
