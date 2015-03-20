@@ -1,7 +1,7 @@
 /*
  * This file is part of AlmuraSDK, licensed under the MIT License (MIT).
  *
- * Copyright (c) AlmuraDev <http://beta.almuramc.com/>
+ * Copyright (c) AlmuraDev <http://github.com/AlmuraDev/AlmuraSDK/>
  * Copyright (c) contributors
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy

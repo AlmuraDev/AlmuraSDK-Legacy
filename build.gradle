@@ -30,9 +30,16 @@ apply plugin: 'com.github.johnrengelman.shadow'
 group = 'com.almuradev'
 archivesBaseName = 'almurasdk'
 
+ext.name = 'AlmuraSDK'
+ext.inceptionYear = '2015'
+ext.packaging = 'jar'
+ext.url = 'http://github.com/AlmuraDev/AlmuraSDK'
+ext.description = 'AlmuraSDK is the SDK for the Almura family of mods.'
+ext.organization = 'AlmuraDev'
 ext.minecraftVersion = '1.7.10'
 ext.forgeVersion = '10.13.2.1307'
-version = minecraftVersion + '-' + forgeVersion.substring(forgeVersion.size() - 4) + '-SNAPSHOT'
+ext.sdkVersion = '1'
+version = minecraftVersion + '-' + forgeVersion.substring(forgeVersion.size() - 4) + '-' + sdkVersion + '-SNAPSHOT'
 
 sourceCompatibility = '1.7'
 targetCompatibility = '1.7'
@@ -178,7 +185,7 @@ uploadArchives {
         }
 
         pom.project {
-            name theName
+            name name
             artifactId archivesBaseName
             packaging packaging
             inceptionYear inceptionYear
