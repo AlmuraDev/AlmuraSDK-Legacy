@@ -151,6 +151,10 @@ task javadocJar(type: Jar, dependsOn: javadoc) {
     classifier = "javadoc"
 }
 
+task deobfJar(type: Jar) {
+    from sourceSets.main.output
+    classifier = "dev"
+}
 
 if (JavaVersion.current().isJava8Compatible()) {
     tasks.withType(Javadoc) {
@@ -162,6 +166,7 @@ if (JavaVersion.current().isJava8Compatible()) {
 artifacts {
     archives sourceJar
     archives javadocJar
+    archives deobfJar
 }
 
 uploadArchives {
