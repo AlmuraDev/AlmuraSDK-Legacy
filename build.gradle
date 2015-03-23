@@ -66,9 +66,9 @@ configurations.all {
 
 dependencies {
     compile 'com.flowpowered:flow-math:1.0.1-SNAPSHOT'
-    compile 'net.malisis:malisiscore:1.7.10-0.10.6-SNAPSHOT:dev'
-    compile 'ninja.leaping.configurate:configurate-core:0.2'
-    compile 'ninja.leaping.configurate:configurate-yaml:0.2'
+    compile 'net.malisis:malisiscore:1.7.10-0.11.2-SNAPSHOT:dev'
+    compile 'ninja.leaping.configurate:configurate-core:1.0.1'
+    compile 'ninja.leaping.configurate:configurate-yaml:1.0.1'
     compile 'org.spongepowered:mixin:0.1-SNAPSHOT'
     compile 'org.yaml:snakeyaml:1.15'
 }
