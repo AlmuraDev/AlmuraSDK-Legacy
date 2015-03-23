@@ -70,10 +70,11 @@ dependencies {
     compile 'net.malisis:malisiscore:1.7.10-0.10.6-SNAPSHOT:dev'
     compile 'ninja.leaping.configurate:configurate-core:0.2'
     compile 'ninja.leaping.configurate:configurate-yaml:0.2'
+	compile 'org.spongepowered:mixin:0.1-SNAPSHOT'
+    compile 'org.yaml:snakeyaml:1.15'
 }
 
 shadowJar  {
-    duplicatesStrategy 'exclude' 
     exclude 'META-INF/*.DSA'
     exclude 'META-INF/*.RSA'
     exclude 'GradleStart**'
@@ -81,6 +82,7 @@ shadowJar  {
         include(dependency('com.flowpowered:flow-math'))
         include(dependency('ninja.leaping.configurate:configurate-yaml'))
         include(dependency('ninja.leaping.configurate:configurate-core'))
+        include(dependency('org.yaml:snakeyaml'))
     }
 	classifier = ''
 }
