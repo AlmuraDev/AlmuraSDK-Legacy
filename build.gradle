@@ -35,7 +35,7 @@ ext.url = 'http://github.com/AlmuraDev/AlmuraSDK'
 ext.description = 'AlmuraSDK is the SDK for the Almura family of mods.'
 ext.organization = 'AlmuraDev'
 ext.minecraftVersion = '1.7.10'
-ext.forgeVersion = '10.13.2.1307'
+ext.forgeVersion = '10.13.2.1342'
 ext.sdkVersion = '1'
 version = minecraftVersion + '-' + forgeVersion.substring(forgeVersion.size() - 4) + '-' + sdkVersion + '-SNAPSHOT'
 
