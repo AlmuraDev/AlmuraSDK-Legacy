@@ -33,16 +33,12 @@ import net.malisis.core.client.gui.component.container.UIBackgroundContainer;
 import net.malisis.core.client.gui.component.interaction.UIButton;
 import net.malisis.core.client.gui.element.SimpleGuiShape;
 import net.malisis.core.util.MouseButton;
-import net.minecraft.client.Minecraft;
-import org.lwjgl.input.Keyboard;
 
 public class UIForm extends UIBackgroundContainer {
 
     public static final com.almuradev.almurasdk.util.Color ALMURA_BLUE = new com.almuradev.almurasdk.util.Color("almura_blue", 9283532);
     private static final int TITLE_BAR_HEIGHT = 13;
     private final UIBackgroundContainer contentContainer, titleContainer;
-    private int dragX, dragY;
-    private boolean dragging = false;
 
     /**
      * Creates a form with no title that has a close button
@@ -133,15 +129,6 @@ public class UIForm extends UIBackgroundContainer {
         this.setSize(width, height);
     }
 
-    protected void close() {
-        Keyboard.enableRepeatEvents(false);
-        if (Minecraft.getMinecraft().thePlayer != null) {
-            Minecraft.getMinecraft().thePlayer.closeScreen();
-        }
-        Minecraft.getMinecraft().displayGuiScreen(getGui());
-        Minecraft.getMinecraft().setIngameFocus();
-    }
-
     @Override
     public final UIForm setSize(int width, int height) {
         super.setSize(width, height);
@@ -171,34 +158,16 @@ public class UIForm extends UIBackgroundContainer {
             if (showCloseButton) {
                 titleCloseButton = new CloseButton(parent);
                 titleCloseButton.setPosition(0, 0, Anchor.RIGHT | Anchor.TOP);
-                titleCloseButton.setName("uiform.title.close");
+                titleCloseButton.setName("form.title.close");
                 titleCloseButton.register(this);
                 add(titleCloseButton);
             }
         }
 
         @Override
-        public boolean onClick(int x, int y) {
-            if (titleCloseButton != null && titleCloseButton.isInsideBounds(x, y)) {
-                dragging = false;
-                return false;
-            }
-            dragging = true;
-            dragX = relativeX(x);
-            dragY = relativeY(y);
-            return true;
-        }
-
-        @Override
         //TODO Grinch, this now has snapshot/live values and may need to be re-done
         public boolean onDrag(int lastX, int lastY, int x, int y, MouseButton button) {
-            // Do not drag if not the left mouse button
-            if (!dragging || button != MouseButton.LEFT) {
-                return false;
-            }
-
-            // Do not drag if inside the close button
-            if (titleCloseButton != null && titleCloseButton.isInsideBounds(x, y)) {
+            if (button != MouseButton.LEFT || (titleCloseButton != null && titleCloseButton.isInsideBounds(x, y))) {
                 return false;
             }
 
@@ -207,8 +176,8 @@ public class UIForm extends UIBackgroundContainer {
                 return false;
             }
 
-            final int xPos = parentContainer.relativeX(x) - dragX;
-            final int yPos = parentContainer.relativeY(y) - dragY;
+            final int xPos = getParent().getParent().relativeX(x) - relativeX(lastX);
+            final int yPos = getParent().getParent().relativeY(y) - relativeY(lastY);
 
             getParent().setPosition(xPos < 0 ? 0 : xPos, yPos < 0 ? 0 : yPos, Anchor.NONE);
             return true;
@@ -217,8 +186,8 @@ public class UIForm extends UIBackgroundContainer {
         @Subscribe
         public void onClick(UIButton.ClickEvent event) {
             switch (event.getComponent().getName().toLowerCase()) {
-                case "uiform.title.close":
-                    ((UIForm) this.getParent()).close();
+                case "form.title.close":
+                    getParent().getGui().close();
             }
         }
     }
