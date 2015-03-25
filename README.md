@@ -6,24 +6,22 @@ Almura SDK
 * [Gradle] 2.1+
 
 ## Cloning
-To clone AlmuraSDK, simply run `git clone --recursive git@github.com:AlmuraDev/AlmuraSDK.git`
+To clone AlmuraSDK, simply run `git clone git@github.com:AlmuraDev/AlmuraSDK.git`
 
 ## Setup
 __Note:__ If you do not have [Gradle] installed then use ./gradlew for Unix systems or Git Bash and gradlew.bat for Windows systems in place of any 'gradle' command.
 
 __For [Eclipse]__  
   1. Run `gradle setupDecompWorkspace --refresh-dependencies`  
-  2. Run `cd MalisisCore` and run `gradle setupDecompWorkspace --refresh-dependencies`  
-  3. Make sure you have the Gradle plugin installed (Help > Eclipse Marketplace > Gradle Integration Plugin)  
-  4. Import AlmuraSDK as a Gradle project (File > Import)
-  5. Select the root folder for AlmuraSDK  and click **Build Model**
-  6. Check AlmuraSDK when it finishes building and click **Finish**
+  2. Make sure you have the Gradle plugin installed (Help > Eclipse Marketplace > Gradle Integration Plugin)  
+  3. Import AlmuraSDK as a Gradle project (File > Import)
+  4. Select the root folder for AlmuraSDK  and click **Build Model**
+  5. Check AlmuraSDK when it finishes building and click **Finish**
 
 __For [IntelliJ]__  
   1. Run `gradle setupDecompWorkspace --refresh-dependencies`  
-  2. Run `cd MalisisCore` and run `gradle setupDecompWorkspace --refresh-dependencies`  
-  3. Make sure you have the Gradle plugin enabled (File > Settings > Plugins).  
-  4. Click File > Import Module and select the **build.gradle** file for Almura.
+  2. Make sure you have the Gradle plugin enabled (File > Settings > Plugins).  
+  3. Click File > Import Module and select the **build.gradle** file for Almura.
 
 ## Running
 __Note:__ The following is aimed to help you setup run configurations for Eclipse and IntelliJ, if you do not want to be able to run AlmuraSDK  directly from your IDE then you can skip this.
