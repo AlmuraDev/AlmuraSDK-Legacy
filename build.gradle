@@ -76,7 +76,7 @@ dependencies {
 shadowJar {
     exclude 'META-INF/*.DSA'
     exclude 'META-INF/*.RSA'
-    exclude 'GradleStart**'
+    exclude 'net/minecraftforge/**'
     dependencies {
         include(dependency('com.flowpowered:flow-math'))
         include(dependency('ninja.leaping.configurate:configurate-yaml'))
