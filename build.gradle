@@ -34,7 +34,7 @@ ext.packaging = 'jar'
 ext.url = 'http://github.com/AlmuraDev/AlmuraSDK'
 ext.organization = 'AlmuraDev'
 ext.minecraftVersion = '1.7.10'
-ext.forgeVersion = '10.13.2.1342'
+ext.forgeVersion = '10.13.3.1395'
 ext.sdkVersion = '1'
 version = minecraftVersion + '-' + forgeVersion.substring(forgeVersion.size() - 4) + '-' + sdkVersion + '-SNAPSHOT'
 
@@ -55,7 +55,7 @@ repositories {
 }
 
 minecraft {
-    version = project.ext.minecraftVersion + '-' + project.ext.forgeVersion + '-' + project.ext.minecraftVersion
+    version = project.ext.minecraftVersion + '-' + project.ext.forgeVersion + '-1710ls'
     mappings = 'stable_12'
     runDir = "run/"
 }
