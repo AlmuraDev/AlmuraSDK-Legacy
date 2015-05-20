@@ -34,7 +34,7 @@ ext.packaging = 'jar'
 ext.url = 'http://github.com/AlmuraDev/AlmuraSDK'
 ext.organization = 'AlmuraDev'
 ext.minecraftVersion = '1.7.10'
-ext.forgeVersion = '10.13.3.1395'
+ext.forgeVersion = '10.13.3.1408'
 ext.sdkVersion = '1'
 version = minecraftVersion + '-' + forgeVersion.substring(forgeVersion.size() - 4) + '-' + sdkVersion + '-SNAPSHOT'
 
@@ -55,7 +55,7 @@ repositories {
 }
 
 minecraft {
-    version = project.ext.minecraftVersion + '-' + project.ext.forgeVersion + '-1710ls'
+    version = project.ext.minecraftVersion + '-' + project.ext.forgeVersion + '-1.7.10'
     mappings = 'stable_12'
     runDir = "run/"
 }
@@ -67,8 +67,7 @@ configurations.all {
 dependencies {
     compile 'com.flowpowered:flow-math:1.0.1-SNAPSHOT'
     compile 'net.malisis:malisiscore:1.7.10-0.11.5-SNAPSHOT:dev'
-    compile 'ninja.leaping.configurate:configurate-core:1.1.2-SNAPSHOT'
-    compile 'ninja.leaping.configurate:configurate-yaml:1.1.2-SNAPSHOT'
+    compile 'ninja.leaping.configurate:configurate-yaml:1.2'
     compile 'org.spongepowered:mixin:0.1-SNAPSHOT'
     compile 'org.yaml:snakeyaml:1.15'
 }
