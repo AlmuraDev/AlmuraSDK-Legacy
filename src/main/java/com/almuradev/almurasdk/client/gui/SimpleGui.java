@@ -27,6 +27,7 @@ package com.almuradev.almurasdk.client.gui;
 import com.almuradev.almurasdk.AlmuraSDK;
 import com.almuradev.almurasdk.FileSystem;
 import com.google.common.base.Optional;
+import net.malisis.core.client.gui.Anchor;
 import net.malisis.core.client.gui.GuiTexture;
 import net.malisis.core.client.gui.MalisisGui;
 import net.malisis.core.client.gui.component.UIComponent;
@@ -106,10 +107,19 @@ public abstract class SimpleGui extends MalisisGui {
     }
 
     public static int getPaddedX(UIComponent<?> component, int padding) {
+        return getPaddedX(component, padding, Anchor.LEFT);
+    }
+
+    public static int getPaddedX(UIComponent<?> component, int padding, int anchor) {
         if (component == null) {
-            return 0;
+            throw new IllegalArgumentException("Component cannot be null!");
+        } else if (anchor == Anchor.BOTTOM || anchor == Anchor.TOP) {
+            throw new IllegalArgumentException("Anchor must be Anchor.LEFT or Anchor.RIGHT.");
+        } else if (anchor == Anchor.RIGHT) {
+            return component.getX() - component.getWidth() - padding;
+        } else {
+            return component.getX() + component.getWidth() + padding;
         }
-        return component.getX() + component.getWidth() + padding;
     }
 
     public static int getPaddedY(UIComponent<?> component, int padding) {
@@ -117,6 +127,18 @@ public abstract class SimpleGui extends MalisisGui {
             return 0;
         }
         return component.getY() + component.getHeight() + padding;
+    }
+
+    public static int getPaddedY(UIComponent<?> component, int padding, int anchor) {
+        if (component == null) {
+            throw new IllegalArgumentException("Component cannot be null!");
+        } else if (anchor == Anchor.LEFT || anchor == Anchor.RIGHT) {
+            throw new IllegalArgumentException("Anchor must be Anchor.TOP or Anchor.BOTTOM.");
+        } else if (anchor == Anchor.BOTTOM) {
+            return component.getY() - component.getHeight() - padding;
+        } else {
+            return component.getY() + component.getHeight() + padding;
+        }
     }
 
     /**

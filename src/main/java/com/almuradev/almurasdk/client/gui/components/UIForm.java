@@ -83,7 +83,7 @@ public class UIForm extends UIBackgroundContainer {
 
         // Setup title
         setTitle(title);
-        titleLabel.getFontRendererOptions().color = Colors.BLACK.getGuiColorCode();
+        titleLabel.getFontRenderOptions().color = Colors.BLACK.getGuiColorCode();
         titleLabel.setPosition(4, 1, Anchor.LEFT | Anchor.MIDDLE);
 
         setSize(width, height);
