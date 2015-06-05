@@ -101,7 +101,7 @@ license {
     ext.year = project.inceptionYear
     sourceSets = project.sourceSets
     header file('HEADER.txt')
-    ignoreFailures false
+    ignoreFailures true
     strictCheck true
     includes(["**/*.java"])
     mapping {
