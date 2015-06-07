@@ -24,62 +24,115 @@
  */
 package com.almuradev.almurasdk.client.gui.components;
 
+import com.almuradev.almurasdk.client.gui.SimpleGui;
+import net.malisis.core.client.gui.GuiRenderer;
 import net.malisis.core.client.gui.GuiTexture;
 import net.malisis.core.client.gui.MalisisGui;
 import net.malisis.core.client.gui.component.UIComponent;
-import net.malisis.core.client.gui.component.container.UIBackgroundContainer;
-import net.malisis.core.client.gui.component.container.UIContainer;
-import net.malisis.core.client.gui.component.decoration.UIImage;
+import net.malisis.core.client.gui.element.GuiShape;
+import net.malisis.core.client.gui.element.SimpleGuiShape;
 import net.malisis.core.client.gui.icon.GuiIcon;
-import net.malisis.core.renderer.animation.transformation.ITransformable;
 
-public class UIPropertyBar extends UIContainer<UIPropertyBar> implements ITransformable.Color {
+public class UIPropertyBar extends UIComponent<UIPropertyBar> {
 
-    private final UIImage barImage;
-    private final UIBackgroundContainer background;
-    private final int gapBetweenSymbolAndBar = 10;
-    private final int symbolWidth = 7;
-    private final int symbolHeight = 7;
+//  private static final Color LIGHT_GREEN = new Color("light_green", 65280);
+//  private static final Color LIGHT_ORANGE = new Color("light_orange", 13413376);
+//  private static final Color RED = new Color("red", 11474462);
+    public static final int LIGHT_GREEN = 0x00FF00;
+    public static final int LIGHT_ORANGE = 0xCCAC00;
+    public static final int RED = 0xAF161E;
 
-    public UIPropertyBar(MalisisGui gui, GuiTexture spriteSheet, GuiIcon symbolIcon, GuiIcon barIcon) {
-        this(gui, spriteSheet, symbolIcon, barIcon, UIComponent.INHERITED, UIComponent.INHERITED);
+    private GuiTexture texture = SimpleGui.TEXTURE_SPRITESHEET;
+
+    private final GuiShape iconShape;
+    private final GuiShape barShape;
+
+    private final GuiIcon barIcon;
+    private final GuiIcon symbolIcon;
+    private final int iconSize = 7;
+    private final int iconGap = 3;
+
+    private boolean relativeColor = true;
+    private int color = 0;
+    private float amount;
+
+    public UIPropertyBar(MalisisGui gui, GuiIcon symbolIcon) {
+        super(gui);
+
+        setSize(105, 7);
+
+        this.symbolIcon = symbolIcon;
+        this.barIcon = SimpleGui.ICON_BAR;
+
+        iconShape = new SimpleGuiShape();
+        iconShape.setSize(iconSize, iconSize);
+        iconShape.storeState();
+
+        barShape = new SimpleGuiShape();
+        barShape.setSize(width - iconSize - iconGap, 7);
+        barShape.translate(iconSize + iconGap, 0, 1);
+        barShape.storeState();
     }
 
-    public UIPropertyBar(MalisisGui gui, GuiTexture spriteSheet, GuiIcon symbolIcon, GuiIcon barIcon, int width, int height) {
-        super(gui, width, height);
-
-        final UIImage symbolImage = new UIImage(gui, spriteSheet, symbolIcon);
-        symbolImage.setSize(symbolWidth, symbolHeight);
-        symbolImage.setPosition(UIComponent.INHERITED, UIComponent.INHERITED);
-
-        barImage = new UIImage(gui, spriteSheet, barIcon);
-        barImage.setSize(UIComponent.INHERITED - gapBetweenSymbolAndBar, UIComponent.INHERITED);
-        barImage.setPosition(gapBetweenSymbolAndBar, UIComponent.INHERITED);
-
-        background = new UIBackgroundContainer(gui, UIComponent.INHERITED - gapBetweenSymbolAndBar, UIComponent.INHERITED - 3);
-        background.setPosition(gapBetweenSymbolAndBar + 1, UIComponent.INHERITED + 1);
-        background.setClipContent(false);
-
-        add(symbolImage, background, barImage);
+    public boolean isRelativeColor() {
+        return relativeColor;
     }
 
-    @Override
-    public void setColor(int color) {
-        background.setColor(color);
-    }
-
-    public int getAmount() {
-        return background.getWidth();
-    }
-
-    public UIPropertyBar setAmount(float percentage) {
-        background.setSize((int) (percentage * (getWidth() - gapBetweenSymbolAndBar)), background.getHeight());
+    public UIPropertyBar setRelativeColor(boolean relativeColor) {
+        this.relativeColor = relativeColor;
         return this;
     }
 
-    @Override
-    public UIPropertyBar setVisible(boolean visible) {
-        background.setVisible(visible);
+    public UIPropertyBar setColor(int color) {
+        this.color = color;
         return this;
     }
+
+    public int getColor() {
+
+        if (!relativeColor)
+            return color;
+
+        if (amount >= 0.6F)
+            return LIGHT_GREEN;
+        if (amount >= 0.3F)
+            return LIGHT_ORANGE;
+        return RED;
+    }
+
+    public float getAmount() {
+        return amount;
+    }
+
+    public UIPropertyBar setAmount(float amount) {
+        this.amount = amount;
+        return this;
+    }
+
+    private int getBarWidth() {
+        return (int) ((width - iconSize - iconGap - 2) * amount);
+    }
+
+    @Override
+    public void drawBackground(GuiRenderer renderer, int mouseX, int mouseY, float partialTick) {
+        renderer.bindTexture(texture);
+
+        // draw the icon
+        iconShape.resetState();
+        rp.icon.set(symbolIcon);
+        renderer.drawShape(iconShape, rp);
+
+        // draw the background
+        barShape.resetState();
+        rp.icon.set(barIcon);
+        renderer.drawShape(barShape, rp);
+    }
+
+    @Override
+    public void drawForeground(GuiRenderer renderer, int mouseX, int mouseY, float partialTick) {
+        // draw the colored rectangle
+        if (amount > 0)
+            renderer.drawRectangle(iconSize + iconGap + 1, 1, 0, getBarWidth(), 5, getColor(), 255);
+    }
+
 }
