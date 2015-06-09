@@ -37,7 +37,7 @@ import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-@Mod(modid = AlmuraSDK.MOD_ID, name = "AlmuraSDK", version = "1.7.10-1395-1-SNAPSHOT")
+@Mod(modid = AlmuraSDK.MOD_ID, name = "AlmuraSDK", version = "1.7.10-1408-1-SNAPSHOT")
 public final class AlmuraSDK {
 
     public static final String MOD_ID = "almurasdk";
