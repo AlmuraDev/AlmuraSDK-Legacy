@@ -62,11 +62,6 @@ public class FontRenderOptionsBuilder {
         return this;
     }
 
-    public FontRenderOptionsBuilder spansMultipleLines(boolean spansMultipleLines) {
-        this.spansMultipleLines = spansMultipleLines;
-        return this;
-    }
-
     public FontRenderOptionsBuilder from(FontRenderOptions existing) {
         this.fontScale = existing.fontScale;
         this.color = existing.color;
@@ -74,7 +69,6 @@ public class FontRenderOptionsBuilder {
         this.bold = existing.bold;
         this.italic = existing.italic;
         this.strikethrough = existing.strikethrough;
-        this.spansMultipleLines = existing.multiLines;
         return this;
     }
 
@@ -86,7 +80,6 @@ public class FontRenderOptionsBuilder {
         options.bold = bold;
         options.italic = italic;
         options.strikethrough = strikethrough;
-        options.multiLines = spansMultipleLines;
         return options;
     }
 
