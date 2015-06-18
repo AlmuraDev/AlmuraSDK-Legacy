@@ -30,7 +30,7 @@ public class FontRenderOptionsBuilder {
 
     private float fontScale;
     private int color;
-    private boolean shadow, bold, italic, strikethrough, spansMultipleLines;
+    private boolean shadow, bold, italic, strikethrough;
 
     public FontRenderOptionsBuilder fontScale(float fontScale) {
         this.fontScale = fontScale;
