@@ -110,6 +110,10 @@ public class UIPropertyBar extends UIComponent<UIPropertyBar> {
     }
 
     private int getBarWidth() {
+        // Amount can be greater than one due to custom armor.
+        if (amount > 1) {
+            amount = 1;
+        }
         return (int) ((width - iconSize - iconGap - 2) * amount);
     }
 
