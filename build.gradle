@@ -35,7 +35,7 @@ ext.url = 'http://github.com/AlmuraDev/AlmuraSDK'
 ext.organization = 'AlmuraDev'
 ext.minecraftVersion = '1.7.10'
 ext.forgeVersion = '10.13.4.1448'
-ext.sdkVersion = '1'
+ext.sdkVersion = '2'
 version = minecraftVersion + '-' + forgeVersion.substring(forgeVersion.size() - 4) + '-' + sdkVersion + '-SNAPSHOT'
 
 sourceCompatibility = '1.7'
@@ -71,7 +71,7 @@ dependencies {
     compile('org.inspirenxe:simplesave:1.3.0-SNAPSHOT') {
         transitive = true
     }
-    compile 'org.spongepowered:mixin:0.1-SNAPSHOT'
+    compile 'org.spongepowered:mixin:0.4.5-SNAPSHOT'
     compile 'org.yaml:snakeyaml:1.15'
 }
 
@@ -137,8 +137,11 @@ def manifestEntries = [
         "Implementation-Title"       : name,
         "Implementation-Version"     : version,
         "Implementation-Vendor"      : url,
-        "FMLCorePlugin"              : "com.almuradev.almurasdk.core.AlmuraSDKCoreMod",
-        "FMLCorePluginContainsFMLMod": 'true'
+        "TweakClass"                 : 'org.spongepowered.asm.launch.MixinTweaker',
+        "TweakOrder"                 : '0',
+        "ForceLoadAsMod"             : 'true',
+        "FMLCorePluginContainsFMLMod": 'true',
+        "FMLAT"                      : 'almurasdk_at.cfg'
 ]
 
 jar {
