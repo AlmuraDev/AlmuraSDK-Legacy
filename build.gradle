@@ -131,21 +131,17 @@ javadoc {
     options.encoding = defaultEncoding
 }
 
-def manifestEntries = [
-        "Built-By"                   : System.properties['user.name'],
-        "Created-By"                 : System.properties['java.vm.version'] + " (" + System.properties['java.vm.vendor'] + ")",
-        "Implementation-Title"       : name,
-        "Implementation-Version"     : version,
-        "Implementation-Vendor"      : url,
-        "TweakClass"                 : 'org.spongepowered.asm.launch.MixinTweaker',
-        "TweakOrder"                 : '0',
-        "ForceLoadAsMod"             : 'true',
-        "FMLCorePluginContainsFMLMod": 'true',
-        "FMLAT"                      : 'almurasdk_at.cfg'
-]
-
 jar {
-    manifest.mainAttributes(manifestEntries)
+    manifest {
+        attributes (
+            'Built-By'                   : System.properties['user.name'],
+            'Created-By'                 : System.properties['java.vm.version'] + " (" + System.properties['java.vm.vendor'] + ")",
+            'Implementation-Title'       : name,
+            'Implementation-Version'     : version,
+            'Implementation-Vendor'      : url,
+            'FMLAT'                      : 'almurasdk_at.cfg'
+        )
+    }
 }
 
 task sourceJar(type: Jar, dependsOn: sourceMainJava) {
