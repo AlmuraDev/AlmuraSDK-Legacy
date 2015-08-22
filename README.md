@@ -3,7 +3,7 @@ Almura SDK
 
 ## Prerequisites
 * [Java] 7
-* [Gradle] 2.1+
+* [Gradle] 2.6+
 
 ## Cloning
 To clone AlmuraSDK, simply run `git clone git@github.com:AlmuraDev/AlmuraSDK.git`
@@ -44,21 +44,21 @@ __For [IntelliJ]__
 
 __Client__
 
-|     Property      | Value                       |
-|:-----------------:|:----------------------------|
-|    Main class     | GradleStart                 |
-|    VM options     | -Xincgc -Xmx1024M -Xms1024M -Dfml.coreMods.load=net.malisis.core.asm.MalisisCorePlugin,com.almuradev.almurasdk.core.AlmuraSDKCoreMod |
-| Working directory | ./run (Included in project) |
-| Module classpath  | AlmuraSDK  (IntelliJ Only)  |
+|     Property      | Value                                                                                  |
+|:-----------------:|:---------------------------------------------------------------------------------------|
+|    Main class     | GradleStart                                                                            |
+|    VM options     | -Xincgc -Xmx1024M -Xms1024M -Dfml.coreMods.load=net.malisis.core.asm.MalisisCorePlugin |
+| Working directory | ./run (Included in project)                                                            |
+| Module classpath  | AlmuraSDK  (IntelliJ Only)                                                             |
 
 __Server__
 
-|     Property      | Value                       |
-|:-----------------:|:----------------------------|
-|    Main class     | GradleStartServer           |
-|    VM options     | -Xincgc -Dfml.ignoreInvalidMinecraftCertificates=true -Dfml.coreMods.load=net.malisis.core.asm.MalisisCorePlugin,com.almuradev.almurasdk.core.AlmuraSDKCoreMod |
-| Working directory | ./run (Included in project) |
-| Module classpath  | AlmuraSDK  (IntelliJ Only)  |
+|     Property      | Value                                                                                  |
+|:-----------------:|:---------------------------------------------------------------------------------------|
+|    Main class     | GradleStartServer                                                                      |
+|    VM options     | -Xincgc -Xmx1024M -Xms1024M -Dfml.coreMods.load=net.malisis.core.asm.MalisisCorePlugin |
+| Working directory | ./run (Included in project)                                                            |
+| Module classpath  | AlmuraSDK  (IntelliJ Only)                                                             |
 
 
 ## Building
