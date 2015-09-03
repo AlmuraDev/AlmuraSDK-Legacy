@@ -32,7 +32,7 @@ public class FileSizeUtil {
         if (value < 0) return "-" + format(-value);
         if (value == 0) return "0B";
 
-        final int mag = (int) (Math.log10(value) / Math.log10(1000));
+        final int mag = (int) (Math.log10(value) / Math.log10(1024));
         final float adjustedSize = (float) value / (1L << (mag * 10));
 
         final String format = (mag > 2 ? "%.2f" : "%.0f") + "%s";
